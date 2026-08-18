@@ -86,13 +86,19 @@ function isEnabled(metric) {
 // error when under-privileged -- they return a smaller number, or the same number
 // meaning something else, which is worse than a missing row.
 function partition(rows, token) {
-  if (token.scopes === null) {
-    return { supported: rows, unverifiable: rows.filter((m) => effectiveRequirements(m).length) };
-  }
   const supported = [];
   const dropped = [];
   for (const metric of rows) {
-    const missing = effectiveRequirements(metric).filter((s) => !token.scopes.has(s));
+    const required = effectiveRequirements(metric);
+    // A token that exposes no scopes cannot be checked, so a row that needs one is
+    // dropped rather than drawn with a caveat nobody reads. Rendering it would print
+    // a public-only figure as though it were the answer, which is the failure this
+    // whole mechanism exists to prevent -- and a token without scopes to read was
+    // measured returning 105 commits where a sufficient one returned 933.
+    const missing =
+      token.scopes === null
+        ? required.map((scope) => `${scope} (unverifiable token)`)
+        : required.filter((scope) => !token.scopes.has(scope));
     (missing.length ? dropped : supported).push({ metric, missing });
   }
   return { supported: supported.map((e) => e.metric), dropped };
@@ -401,18 +407,13 @@ if (requested.length === 0) {
 }
 
 const token = await readTokenScopes();
-const { supported, dropped = [], unverifiable = [] } = partition(requested, token);
+const { supported, dropped = [] } = partition(requested, token);
 
 console.log(
   `Token: ${token.kind}${token.scopes ? `, scopes: ${[...token.scopes].join(", ") || "(none)"}` : ""}`,
 );
 for (const { metric, missing } of dropped) {
   console.log(`Dropped ${metric.key}: token is missing ${missing.join(", ")}`);
-}
-if (unverifiable.length) {
-  console.log(
-    `Cannot verify ${unverifiable.length} rows: a fine-grained token exposes no scopes, so numbers needing repo or org read may be wrong.`,
-  );
 }
 if (supported.length === 0) {
   throw new Error("The token supports none of the enabled metrics.");
@@ -423,7 +424,7 @@ if (supported.length === 0) {
 const sparklineWanted = isTruthy(process.env.SHOW_SPARKLINE ?? "true");
 const sparklineMissing =
   token.scopes === null
-    ? []
+    ? (SOURCE_REQUIREMENTS.calendar ?? []).map((scope) => `${scope} (unverifiable token)`)
     : (SOURCE_REQUIREMENTS.calendar ?? []).filter((scope) => !token.scopes.has(scope));
 const withSparkline = sparklineWanted && sparklineMissing.length === 0;
 if (sparklineWanted && !withSparkline) {

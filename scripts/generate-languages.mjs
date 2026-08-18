@@ -14,7 +14,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
-import { configure, graphql, httpLog } from "./github.mjs";
+import { configure, graphql, httpLog, readTokenScopes } from "./github.mjs";
 import { measureLanguages, parseManual, shareOut } from "./languages.mjs";
 import { renderLanguagesCard } from "./language-card.mjs";
 import { buildTheme } from "./theme.mjs";
@@ -56,14 +56,20 @@ if (manual) {
   if (limit !== "all" && (!Number.isInteger(limit) || limit < 1)) {
     throw new Error(`PRS_NUMBER_TO_CALCULATE_LANGUAGES: expected "all" or a whole number, got "${raw}"`);
   }
+  // Whether private pull requests are in reach changes what the figures describe, so
+  // the note says which it counted rather than leaving the reader to assume.
+  const token = await readTokenScopes();
+  const canSeePrivate = token.scopes?.has("repo") ?? false;
+  const kind = canSeePrivate ? "pull requests" : "public pull requests";
+
   const result = await measureLanguages(graphql, USERNAME, limit);
   lines = result.lines;
   // Say what the figures rest on, on the card itself: a share out of a hundred recent
   // pull requests is not the same claim as a share out of every one.
   note =
     result.read >= result.total
-      ? `calculated analyzing all ${result.total} pull requests`
-      : `calculated analyzing the latest ${result.read} pull requests`;
+      ? `calculated analyzing all ${result.total} ${kind}`
+      : `calculated analyzing the latest ${result.read} ${kind}`;
   console.log(`Languages: read ${result.read} of ${result.total} PRs`);
   if (result.truncated) {
     console.log(`  ${result.truncated} pull requests had over 100 files and were read in part`);

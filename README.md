@@ -15,6 +15,7 @@ account. GitHub Actions builds them, your own repository stores them.
 ## Contents
 
 - [Why it exists](#why-it-exists)
+- [Do you need the read token?](#do-you-need-the-read-token)
 - [How to use it](#how-to-use-it)
 - [Formats](#formats)
 - [Configuration](#configuration)
@@ -64,6 +65,28 @@ measured** (`calculated analyzing all 800 pull requests`), and because nothing i
 guessed on your behalf, it **drops rows it cannot stand behind** rather than printing a
 smaller number as if it were the answer. Both, with measurements:
 **[docs/why.md](docs/why.md)**.
+
+## Do you need the read token?
+
+Your call, and the cards work either way.
+
+**Without it** the workflow runs on the token GitHub Actions provides by itself. That
+token sees only public activity, so the 13 rows marked *built-in* below are drawn and
+the 14 marked *read token* are **dropped rather than guessed** — the card shows less,
+and never shows a smaller number as though it were the total. The languages card says
+`public pull requests` instead of `pull requests`.
+
+**With it** everything is counted, private repositories included. On one account the
+difference was 949 commits against 106, and 716 pull requests against 44 — because
+almost all of that work is private.
+
+The cost of having it is real and worth stating: a classic token with `repo` has no
+read-only variant, so it also grants write access to every repository you can reach.
+That is why the fork holding it is private.
+
+> The **write** token from step 3 is not optional either way: `GITHUB_TOKEN` cannot
+> write to another repository, which is how the cards reach your profile. It is
+> fine-grained and scoped to that one repository, so it carries nothing beyond it.
 
 ## How to use it
 
@@ -138,65 +161,78 @@ Regenerate them with `node scripts/examples.mjs` — placeholder data, no token 
 
 ### Look
 
-| Variable | Values |
-| --- | --- |
-| `CARD_LAYOUT` | `tiles`, `mono` |
-| `CARD_THEME` | `dark`, `light`, `auto` — follows the viewer's setting |
-| `CARD_ACCENT` | any hex; empty uses the theme's own |
-| `CARD_ICONS` | `true`, `false` |
-| `SHOW_SPARKLINE` | `true`, `false` |
-| `METRIC_ORDER` | comma-separated metric keys, in the order you want them |
+| Variable | Values | Works with |
+| --- | --- | --- |
+| `CARD_LAYOUT` | `tiles`, `mono` | built-in |
+| `CARD_THEME` | `dark`, `light`, `auto` — follows the viewer's setting | built-in |
+| `CARD_ACCENT` | any hex; empty uses the theme's own | built-in |
+| `CARD_ICONS` | `true`, `false` | built-in |
+| `SHOW_SPARKLINE` | `true`, `false` | read token |
+| `METRIC_ORDER` | comma-separated metric keys, in the order you want them | built-in |
+
+`SHOW_SPARKLINE` reads the contribution calendar, which needs the read token; without
+it the chart is left out rather than drawn from public days alone.
 
 An accent that cannot be read on the surface it lands on is corrected rather than
 drawn as given, and the run says so.
 
 ### Rows — on by default
 
-| Variable | Row |
-| --- | --- |
-| `SHOW_STARS` | Total Stars Earned |
-| `SHOW_COMMITS` | Total Commits |
-| `SHOW_PRS` | Total PRs |
-| `SHOW_ISSUES` | Total Issues |
-| `SHOW_CONTRIBUTED_TO` | Contributed to |
+| Variable | Row | Works with |
+| --- | --- | --- |
+| `SHOW_STARS` | Total Stars Earned | built-in |
+| `SHOW_COMMITS` | Total Commits | read token |
+| `SHOW_PRS` | Total PRs | read token |
+| `SHOW_ISSUES` | Total Issues | read token |
+| `SHOW_CONTRIBUTED_TO` | Contributed to | read token |
 
 ### Rows — off by default
 
-| Variable | Row |
-| --- | --- |
-| `SHOW_FORKS` | Total Forks Earned |
-| `SHOW_WATCHERS` | Total Watchers |
-| `SHOW_FOLLOWERS` | Followers |
-| `SHOW_FOLLOWING` | Following |
-| `SHOW_STARS_GIVEN` | Stars Given |
-| `SHOW_REPOS` | Repositories |
-| `SHOW_GISTS` | Public Gists |
-| `SHOW_ORGANIZATIONS` | Organizations |
-| `SHOW_DISK_USAGE` | Repository Size |
-| `SHOW_ACCOUNT_AGE` | Account Age |
-| `SHOW_PRS_MERGED` | PRs Merged |
-| `SHOW_PRS_MERGE_RATE` | PR Merge Rate |
-| `SHOW_PRS_REVIEWED` | PRs Reviewed |
-| `SHOW_PRS_COMMENTED` | PRs Commented |
-| `SHOW_ISSUES_COMMENTED` | Issues Commented |
-| `SHOW_DISCUSSIONS_STARTED` | Discussions Started |
-| `SHOW_DISCUSSIONS_ANSWERED` | Discussions Answered |
-| `SHOW_COMMITS_THIS_YEAR` | Commits (YYYY) |
-| `SHOW_CONTRIBUTIONS_THIS_YEAR` | Contributions (YYYY) |
-| `SHOW_STREAK_CURRENT` | Current Streak |
-| `SHOW_STREAK_LONGEST` | Longest Streak |
-| `SHOW_ACTIVE_DAYS` | Active Days |
+| Variable | Row | Works with |
+| --- | --- | --- |
+| `SHOW_FORKS` | Total Forks Earned | built-in |
+| `SHOW_WATCHERS` | Total Watchers | built-in |
+| `SHOW_FOLLOWERS` | Followers | built-in |
+| `SHOW_FOLLOWING` | Following | built-in |
+| `SHOW_STARS_GIVEN` | Stars Given | built-in |
+| `SHOW_REPOS` | Repositories | built-in |
+| `SHOW_GISTS` | Public Gists | built-in |
+| `SHOW_ORGANIZATIONS` | Organizations | built-in |
+| `SHOW_DISK_USAGE` | Repository Size | built-in |
+| `SHOW_ACCOUNT_AGE` | Account Age | built-in |
+| `SHOW_PRS_MERGED` | PRs Merged | read token |
+| `SHOW_PRS_MERGE_RATE` | PR Merge Rate | read token |
+| `SHOW_PRS_REVIEWED` | PRs Reviewed | read token |
+| `SHOW_PRS_COMMENTED` | PRs Commented | read token |
+| `SHOW_ISSUES_COMMENTED` | Issues Commented | read token |
+| `SHOW_DISCUSSIONS_STARTED` | Discussions Started | built-in |
+| `SHOW_DISCUSSIONS_ANSWERED` | Discussions Answered | built-in |
+| `SHOW_COMMITS_THIS_YEAR` | Commits (YYYY) | read token |
+| `SHOW_CONTRIBUTIONS_THIS_YEAR` | Contributions (YYYY) | read token |
+| `SHOW_STREAK_CURRENT` | Current Streak | read token |
+| `SHOW_STREAK_LONGEST` | Longest Streak | read token |
+| `SHOW_ACTIVE_DAYS` | Active Days | read token |
 
 Only the APIs the enabled rows need are called: the default set costs two requests.
 `YYYY` is the current year, computed per run.
 
+**built-in** means the row works on the token Actions provides by itself, with nothing
+for you to create. **read token** means it needs the classic token from step 2, because
+the figure includes private work and cannot be reached without it. A row marked *read
+token* is dropped, not guessed, when the token is missing — see
+[Do you need the read token?](#do-you-need-the-read-token).
+
 ### Languages
 
-| Variable | Values |
-| --- | --- |
-| `PRS_NUMBER_TO_CALCULATE_LANGUAGES` | `all` (default), or how many recent pull requests to read |
-| `EXCLUDED_LANGUAGES` | comma-separated names to leave out |
-| `MANUAL_LANGUAGES` | `Terraform 54, TypeScript 21` — declared outright, **no request made** |
+| Variable | Values | Works with |
+| --- | --- | --- |
+| `PRS_NUMBER_TO_CALCULATE_LANGUAGES` | `all` (default), or how many recent pull requests to read | built-in, public only |
+| `EXCLUDED_LANGUAGES` | comma-separated names to leave out | either |
+| `MANUAL_LANGUAGES` | `Terraform 54, TypeScript 21` — declared outright | **no token used** |
+
+The languages card runs on either token: with the built-in one it reads your public pull
+requests and says `public pull requests` on the card, with the read token it reads them
+all. `MANUAL_LANGUAGES` makes no request of any kind, so it needs no read access at all.
 
 A limit larger than your history is not an error: it reads what exists and says so.
 
