@@ -38,7 +38,8 @@ own repository.
 The cards carry one comment naming this project. It exists for **one** reason — counting
 how many people use it, since a template copy cannot be counted the way a fork can. It
 sends nothing, identifies nobody, and **you can delete it yourself**: one line, and the
-card is identical. [How the counting works](docs/design.md#the-signature).
+card is identical. Do go ahead if you would rather — I will only be a little sad about it
+:( &nbsp;[How the counting works](docs/design.md#the-signature).
 
 Two consequences: the card **says what it measured**, and it **drops rows it cannot stand
 behind** rather than printing a smaller number as though it were the answer. Both, with

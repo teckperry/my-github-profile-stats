@@ -35,7 +35,7 @@ const SIGNATURE =
   "       This comment exists only so the project can count how many people use it, since a\n" +
   "       template copy cannot be counted the way a fork can. It sends nothing and identifies\n" +
   "       nobody. Delete this comment if you would rather not be counted; the card is\n" +
-  "       identical without it. -->";
+  "       identical without it, and I will only be a little sad about it :( -->";
 
 const svgDocument = ({ width, height, title, desc, style, body }) => `<svg
   width="${width}"
