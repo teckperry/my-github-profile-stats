@@ -5,7 +5,7 @@
 Two repositories, and only one of them can do anything.
 
 ```
-  your fork · private                      you/you · public
+  your copy · private                      you/you · public
   ───────────────────                      ────────────────
   STATS_READ_PAT       ─── reads ──►  your account
   PROFILE_WRITE_TOKEN  ─── writes ─────►   profile/stats.svg
@@ -15,7 +15,7 @@ Two repositories, and only one of them can do anything.
   holds both secrets                       holds no secrets
 ```
 
-The private fork is granted access to your account. The public repository is granted
+The private copy is granted access to your account. The public repository is granted
 nothing: it receives two SVG files and never learns how they were made. The only thing
 crossing the boundary is a rendered image.
 
@@ -32,7 +32,7 @@ why it cannot replace it.
 
 The read token is optional and is the one that carries risk. A classic token with `repo`
 has no read-only variant, so it grants write access to every repository you can reach.
-That is the reason the fork holding it must be private, and the reason the project runs
+That is the reason the copy holding it must be private, and the reason the project runs
 without it at all if you would rather not have one.
 
 ## Without the read token
@@ -43,6 +43,19 @@ rather than estimated**, and the languages card says `public pull requests`.
 
 Measured on one account, with and without: 949 commits against 106, and 716 pull
 requests against 44 — almost all of that work being private.
+
+## Why the copy must be private
+
+Two reasons, and only the first is about secrets.
+
+A private repository keeps the read token out of a place whose Actions logs are world
+readable. And GitHub disables scheduled workflows in a **public** repository after 60 days
+without repository activity — this one never commits to itself, since it writes to your
+profile repository, so a public copy would stop running silently after two months. A
+private copy is not subject to that rule.
+
+Actions minutes for private repositories come out of your monthly allowance, which is what
+you pay for both: about 30 of the 2,000 the Free plan includes. See [cost.md](cost.md).
 
 ## The trust surface
 
