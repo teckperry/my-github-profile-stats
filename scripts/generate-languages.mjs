@@ -15,9 +15,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
 import { configure, graphql, httpLog } from "./github.mjs";
-import { composeCard } from "./layouts.mjs";
 import { measureLanguages, parseManual, shareOut } from "./languages.mjs";
-import { THEMES, ensureReadable } from "./theme.mjs";
+import { renderLanguagesCard } from "./language-card.mjs";
 import { buildTheme } from "./theme.mjs";
 
 const requireEnv = (name) => {
@@ -34,89 +33,10 @@ const OUTPUT = requireEnv("LANGUAGES_OUTPUT");
 
 configure({ token: TOKEN, username: USERNAME });
 
-const THEME = buildTheme(process.env.CARD_THEME || "dark", process.env.CARD_ACCENT);
-
-const LAYOUT = {
-  width: 467,
-  pad: 22,
-  legendRow: 21,
-  legendCols: 2,
-  dot: 8,
-  gapBeforeNote: 16,
-};
-
-const escape = (value) =>
-  String(value).replace(
-    /[&<>"']/g,
-    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
-  );
+const THEME_NAME = process.env.CARD_THEME || "dark";
+const THEME = buildTheme(THEME_NAME, process.env.CARD_ACCENT);
 
 const pct = (share) => `${share.toFixed(1)}%`;
-
-// Language colours are GitHub's, which is what makes the bar recognisable, but they
-// were never chosen against a dark surface: JSON is #292929, which on #0d1117 reads as
-// a hole in the bar rather than a segment. Each one goes through the same contrast
-// correction as the accent, per surface, and is emitted as a variable so one card can
-// carry both sets.
-function paletteCss(segments) {
-  const themeName = process.env.CARD_THEME || "dark";
-  const forSurface = (bg) =>
-    segments
-      .map((s, i) => `      --lang-${i}: ${ensureReadable(s.color, bg).hex};`)
-      .join("\n");
-
-  if (themeName === "auto") {
-    return `    :root {\n${forSurface(THEMES.light.bg)}\n    }
-    @media (prefers-color-scheme: dark) {
-      :root {\n${forSurface(THEMES.dark.bg)}\n      }
-    }`;
-  }
-  return `    :root {\n${forSurface(THEMES[themeName].bg)}\n    }`;
-}
-
-function render(segments, note) {
-  const inner = LAYOUT.width - LAYOUT.pad * 2;
-  const rows = Math.ceil(segments.length / LAYOUT.legendCols);
-  const colWidth = inner / LAYOUT.legendCols;
-  const noteTop = rows * LAYOUT.legendRow + LAYOUT.gapBeforeNote;
-  const height = LAYOUT.pad * 2 + noteTop + (note ? 4 : -LAYOUT.gapBeforeNote);
-
-  // Every segment is named and given its share, so identity never rests on colour
-  // alone -- which is also what makes borrowing GitHub's palette defensible.
-  const legend = segments
-    .map((s, i) => {
-      const col = i % LAYOUT.legendCols;
-      const row = Math.floor(i / LAYOUT.legendCols);
-      const cx = col * colWidth;
-      return `      <g class="entry" style="animation-delay: ${120 + i * 70}ms" transform="translate(${cx.toFixed(1)}, ${row * LAYOUT.legendRow})">
-        <circle cx="${LAYOUT.dot / 2}" cy="7.5" r="${LAYOUT.dot / 2}" fill="var(--lang-${i})"/>
-        <text class="name" x="${LAYOUT.dot + 8}" y="11">${escape(s.name)}</text>
-        <text class="share" x="${(colWidth - 12).toFixed(1)}" y="11" text-anchor="end">${pct(s.share)}</text>
-      </g>`;
-    })
-    .join("\n");
-
-  return composeCard({
-    width: LAYOUT.width,
-    height: Math.ceil(height),
-    theme: THEME,
-    title: `${USERNAME}'s languages`,
-    desc: segments.map((s) => `${s.name}: ${pct(s.share)}`).join(", ") + (note ? `. ${note}` : ""),
-    style: `${THEME.css}
-${paletteCss(segments)}
-    .name { font: 600 12.5px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: ${THEME.strong}; }
-    .share { font: 400 12.5px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: ${THEME.text}; }
-    .note { font: 400 10.5px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${THEME.dim}; }
-    .entry, .note { opacity: 0; animation: fadeIn .3s ease-out forwards; }
-    .note { animation-delay: ${200 + segments.length * 70}ms; }
-    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }`,
-    body: `  <g transform="translate(${LAYOUT.pad}, ${LAYOUT.pad})">
-    <g>
-${legend}
-    </g>${note ? `\n    <text class="note" x="0" y="${noteTop}">${escape(note)}</text>` : ""}
-  </g>`,
-  });
-}
 
 const exclude = (process.env.EXCLUDED_LANGUAGES ?? "")
   .split(",")
@@ -159,7 +79,11 @@ if (segments.length === 0) {
 }
 
 await mkdir(dirname(OUTPUT), { recursive: true });
-await writeFile(OUTPUT, render(segments, note), "utf8");
+await writeFile(
+  OUTPUT,
+  renderLanguagesCard(segments, note, THEME, THEME_NAME, `${USERNAME}'s languages`),
+  "utf8",
+);
 
 console.log(`Wrote ${OUTPUT}`);
 console.log(`Requests (${httpLog.length}):`);
