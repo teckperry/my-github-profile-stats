@@ -7,7 +7,7 @@
   <br>
   <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
   <br>
-  <sub><!-- adopters:start -->no public profiles counted yet<!-- adopters:end --></sub>
+  <sub><!-- adopters:start -->used by 0 public profiles<!-- adopters:end --></sub>
 </p>
 
 ## Nobody else in the chain

@@ -32,10 +32,7 @@ const result = await response.json();
 // One profile can publish both cards, so repositories are what to count, not files.
 const repos = new Set(result.items.map((item) => item.repository.full_name));
 
-const phrase =
-  repos.size === 0
-    ? "no public profiles counted yet"
-    : `used by ${repos.size} public profile${repos.size === 1 ? "" : "s"}`;
+const phrase = `used by ${repos.size} public profile${repos.size === 1 ? "" : "s"}`;
 
 if (process.argv.includes("--write")) {
   const { readFile, writeFile } = await import("node:fs/promises");
