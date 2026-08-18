@@ -4,7 +4,7 @@
 // for its README to render, so a card that exists is a card that can be found.
 //
 //   GITHUB_TOKEN=$(gh auth token) node scripts/adopters.mjs
-//   ... --write   also updates the count between the markers in README.md
+//   ... --write   also redraws assets/adopters.svg
 
 const TOKEN = process.env.GITHUB_TOKEN ?? process.env.STATS_TOKEN;
 if (!TOKEN) {
@@ -35,19 +35,11 @@ const repos = new Set(result.items.map((item) => item.repository.full_name));
 const phrase = `used by ${repos.size} public profile${repos.size === 1 ? "" : "s"}`;
 
 if (process.argv.includes("--write")) {
-  const { readFile, writeFile } = await import("node:fs/promises");
-  const readme = await readFile("README.md", "utf8");
-  const pattern = /(<!-- adopters:start -->)[\s\S]*?(<!-- adopters:end -->)/;
-  if (!pattern.test(readme)) {
-    throw new Error("README.md has no adopters markers to write between.");
-  }
-  const updated = readme.replace(pattern, `$1${phrase}$2`);
-  if (updated !== readme) {
-    await writeFile("README.md", updated, "utf8");
-    console.log(`README updated: ${phrase}`);
-  } else {
-    console.log(`README already says: ${phrase}`);
-  }
+  const { mkdir, writeFile } = await import("node:fs/promises");
+  const { renderAdoptersBadge } = await import("./adopters-badge.mjs");
+  await mkdir("assets", { recursive: true });
+  await writeFile("assets/adopters.svg", renderAdoptersBadge(repos.size), "utf8");
+  console.log(`Badge redrawn: ${phrase}`);
 }
 
 console.log(`Query: ${QUERY}`);

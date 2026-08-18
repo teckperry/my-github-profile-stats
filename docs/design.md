@@ -75,8 +75,14 @@ searching for the line above:
 "my-github-profile-stats" in:file extension:svg -repo:teckperry/my-github-profile-stats
 ```
 
-`scripts/adopters.mjs` runs that and prints the repositories it found. It is a maintainer's
-tool, not part of building a card.
+`scripts/adopters.mjs` runs that, prints the repositories it found, and with `--write`
+redraws `assets/adopters.svg` — the badge in the readme, drawn by the same renderer as the
+cards so no badge service is involved. A daily workflow commits it.
+
+One consequence of hosting the badge ourselves: GitHub proxies and caches images in a
+readme, and the file's path never changes, so the number shown can lag the number
+measured by a while. For a count of adopters that is a fair trade against a request to a
+third party on every page view.
 
 This is deliberately not telemetry. Nothing is sent anywhere, no run contacts anything
 other than GitHub's API, and the line sits in plain text in the file you publish rather
