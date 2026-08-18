@@ -45,8 +45,9 @@ pull requests`. Your call — [security.md](docs/security.md#without-the-read-to
 
 **1 · Make your own copy.**
 
-On this page: **Use this template** → **Create a new repository** → give it a name →
-set **Private** → **Create repository**.
+**[Create your copy from this template](https://github.com/teckperry/my-github-profile-stats/generate)** —
+or the **Use this template** button at the top of this page. Give it a name, set
+**Private**, and create it.
 
 Private matters twice over. It keeps your token out of a repository whose Actions logs
 anyone can read, and it keeps the schedule running: GitHub disables scheduled workflows in
