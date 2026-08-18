@@ -1,0 +1,143 @@
+<svg
+  width="848"
+  height="301"
+  viewBox="0 0 848 301"
+  style="max-width: 100%; height: auto;"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="descId"
+>
+  <title id="titleId">Example User&#39;s GitHub stats</title>
+  <desc id="descId">Total Commits: 1,200, Commits (2026): 400, Total PRs: 800, PR Merge Rate: 90.0%, PRs Reviewed: 600, Total Issues: 50, Total Stars Earned: 120, Total Forks Earned: 30, Total Watchers: 45, Followers: 80, Following: 60, Stars Given: 150, Repositories: 40, Public Gists: 10, Organizations: 3, Repository Size: 25.0 MB, Account Age: 8.0 yrs, Contributed to: 35, PRs Merged: 720, PRs Commented: 500, Issues Commented: 90, Discussions Started: 12, Discussions Answered: 8, Contributions (2026): 1,500, Current Streak: 5 days, Longest Streak: 30 days, Active Days: 600 days. Contributions: 950</desc>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --border: #d0d7de;
+      --text: #59636e;
+      --strong: #1f2328;
+      --dim: #818b98;
+      --accent: #0969da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+      --bg: #0d1117;
+      --border: #30363d;
+      --text: #7d8590;
+      --strong: #e6edf3;
+      --dim: #6e7681;
+      --accent: #2f81f7;
+      }
+    }
+    .line, .tick { font: 400 13px ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+    .dim { fill: var(--text); }
+    .dots { fill: var(--border); }
+    .num { fill: var(--strong); font-weight: 700; }
+    .tick { font-size: 10.5px; fill: var(--dim); }
+    .icon { fill: var(--accent); }
+    .spark-line { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+    .col, .spark { opacity: 0; animation: fadeIn .3s ease-out forwards; }
+    .col:nth-of-type(1) { animation-delay: 150ms }
+    .col:nth-of-type(2) { animation-delay: 260ms }
+    .col:nth-of-type(3) { animation-delay: 370ms }
+    .spark { animation-delay: 780ms; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+  </style>
+  <rect x="0.5" y="0.5" rx="6" width="847" height="300" stroke="var(--border)" fill="var(--bg)"/>
+  <g transform="translate(22, 22)">
+      <g class="col" transform="translate(0.0, 0)">
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="0.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="12"><tspan class="dim">Total Commits </tspan><tspan class="dots">·········</tspan></text>
+        <text class="line num" x="241.8" y="12" text-anchor="end">1,200</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="21.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="33"><tspan class="dim">Commits (2026) </tspan><tspan class="dots">··········</tspan></text>
+        <text class="line num" x="241.8" y="33" text-anchor="end">400</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="42.95"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="line" x="23.4" y="54"><tspan class="dim">Total PRs </tspan><tspan class="dots">···············</tspan></text>
+        <text class="line num" x="241.8" y="54" text-anchor="end">800</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="63.95"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="line" x="23.4" y="75"><tspan class="dim">PR Merge Rate </tspan><tspan class="dots">·········</tspan></text>
+        <text class="line num" x="241.8" y="75" text-anchor="end">90.0%</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="84.95"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="line" x="23.4" y="96"><tspan class="dim">PRs Reviewed </tspan><tspan class="dots">············</tspan></text>
+        <text class="line num" x="241.8" y="96" text-anchor="end">600</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="105.95"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="line" x="23.4" y="117"><tspan class="dim">Total Issues </tspan><tspan class="dots">·············</tspan></text>
+        <text class="line num" x="241.8" y="117" text-anchor="end">50</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="126.95"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="line" x="23.4" y="138"><tspan class="dim">Total Stars Earned </tspan><tspan class="dots">······</tspan></text>
+        <text class="line num" x="241.8" y="138" text-anchor="end">120</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="147.95"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="line" x="23.4" y="159"><tspan class="dim">Total Forks Earned </tspan><tspan class="dots">·······</tspan></text>
+        <text class="line num" x="241.8" y="159" text-anchor="end">30</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="168.95"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="line" x="23.4" y="180"><tspan class="dim">Total Watchers </tspan><tspan class="dots">···········</tspan></text>
+        <text class="line num" x="241.8" y="180" text-anchor="end">45</text>
+      </g>
+      <g class="col" transform="translate(280.8, 0)">
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="0.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="12"><tspan class="dim">Followers </tspan><tspan class="dots">················</tspan></text>
+        <text class="line num" x="241.8" y="12" text-anchor="end">80</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="21.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="33"><tspan class="dim">Following </tspan><tspan class="dots">················</tspan></text>
+        <text class="line num" x="241.8" y="33" text-anchor="end">60</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="42.95"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="line" x="23.4" y="54"><tspan class="dim">Stars Given </tspan><tspan class="dots">·············</tspan></text>
+        <text class="line num" x="241.8" y="54" text-anchor="end">150</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="63.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="75"><tspan class="dim">Repositories </tspan><tspan class="dots">·············</tspan></text>
+        <text class="line num" x="241.8" y="75" text-anchor="end">40</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="84.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="96"><tspan class="dim">Public Gists </tspan><tspan class="dots">·············</tspan></text>
+        <text class="line num" x="241.8" y="96" text-anchor="end">10</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="105.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="117"><tspan class="dim">Organizations </tspan><tspan class="dots">·············</tspan></text>
+        <text class="line num" x="241.8" y="117" text-anchor="end">3</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="126.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="138"><tspan class="dim">Repository Size </tspan><tspan class="dots">·····</tspan></text>
+        <text class="line num" x="241.8" y="138" text-anchor="end">25.0 MB</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="147.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="159"><tspan class="dim">Account Age </tspan><tspan class="dots">·········</tspan></text>
+        <text class="line num" x="241.8" y="159" text-anchor="end">8.0 yrs</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="168.95"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="line" x="23.4" y="180"><tspan class="dim">Contributed to </tspan><tspan class="dots">···········</tspan></text>
+        <text class="line num" x="241.8" y="180" text-anchor="end">35</text>
+      </g>
+      <g class="col" transform="translate(561.6, 0)">
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="0.95"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="line" x="23.4" y="12"><tspan class="dim">PRs Merged </tspan><tspan class="dots">··············</tspan></text>
+        <text class="line num" x="241.8" y="12" text-anchor="end">720</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="21.95"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="line" x="23.4" y="33"><tspan class="dim">PRs Commented </tspan><tspan class="dots">···········</tspan></text>
+        <text class="line num" x="241.8" y="33" text-anchor="end">500</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="42.95"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="line" x="23.4" y="54"><tspan class="dim">Issues Commented </tspan><tspan class="dots">·········</tspan></text>
+        <text class="line num" x="241.8" y="54" text-anchor="end">90</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="63.95"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="line" x="23.4" y="75"><tspan class="dim">Discussions Started </tspan><tspan class="dots">······</tspan></text>
+        <text class="line num" x="241.8" y="75" text-anchor="end">12</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="84.95"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="line" x="23.4" y="96"><tspan class="dim">Discussions Answered </tspan><tspan class="dots">······</tspan></text>
+        <text class="line num" x="241.8" y="96" text-anchor="end">8</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="105.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="117"><tspan class="dim">Contributions (2026) </tspan><tspan class="dots">··</tspan></text>
+        <text class="line num" x="241.8" y="117" text-anchor="end">1,500</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="126.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="138"><tspan class="dim">Current Streak </tspan><tspan class="dots">·······</tspan></text>
+        <text class="line num" x="241.8" y="138" text-anchor="end">5 days</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="147.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="159"><tspan class="dim">Longest Streak </tspan><tspan class="dots">······</tspan></text>
+        <text class="line num" x="241.8" y="159" text-anchor="end">30 days</text>
+        <svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="168.95"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="line" x="23.4" y="180"><tspan class="dim">Active Days </tspan><tspan class="dots">········</tspan></text>
+        <text class="line num" x="241.8" y="180" text-anchor="end">600 days</text>
+      </g>
+      <g class="spark" transform="translate(0, 207)">
+        <path class="spark-line" d="M0.0 33.5 L23.0 33.5 L45.9 32.9 L68.9 32.9 L91.8 32.4 L114.8 31.3 L137.7 31.9 L160.7 30.8 L183.6 29.2 L206.6 30.3 L229.5 27.6 L252.5 28.7 L275.5 26.6 L298.4 24.4 L321.4 26.0 L344.3 22.3 L367.3 23.9 L390.2 20.2 L413.2 21.3 L436.1 18.1 L459.1 19.7 L482.0 15.9 L505.0 17.5 L527.9 13.8 L550.9 15.4 L573.9 11.7 L596.8 13.3 L619.8 9.6 L642.7 11.2 L665.7 7.4 L688.6 9.0 L711.6 4.8 L734.5 6.4 L757.5 2.1 L780.4 3.7 L803.4 0.0"/>
+        <text class="tick" x="0" y="50">2023</text>
+        <text class="tick" x="401.7" y="50" text-anchor="middle">950 contributions</text>
+        <text class="tick" x="803.4" y="50" text-anchor="end">2026</text>
+      </g>
+  </g>
+</svg>

@@ -1,0 +1,192 @@
+<svg
+  width="620"
+  height="486"
+  viewBox="0 0 620 486"
+  style="max-width: 100%; height: auto;"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="descId"
+>
+  <title id="titleId">Example User&#39;s GitHub stats</title>
+  <desc id="descId">Total Commits: 1,200, Commits (2026): 400, Total PRs: 800, PR Merge Rate: 90.0%, PRs Reviewed: 600, Total Issues: 50, Total Stars Earned: 120, Total Forks Earned: 30, Total Watchers: 45, Followers: 80, Following: 60, Stars Given: 150, Repositories: 40, Public Gists: 10, Organizations: 3, Repository Size: 25.0 MB, Account Age: 8.0 yrs, Contributed to: 35, PRs Merged: 720, PRs Commented: 500, Issues Commented: 90, Discussions Started: 12, Discussions Answered: 8, Contributions (2026): 1,500, Current Streak: 5 days, Longest Streak: 30 days, Active Days: 600 days. Contributions: 950</desc>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --border: #d0d7de;
+      --text: #59636e;
+      --strong: #1f2328;
+      --dim: #818b98;
+      --accent: #0969da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+      --bg: #0d1117;
+      --border: #30363d;
+      --text: #7d8590;
+      --strong: #e6edf3;
+      --dim: #6e7681;
+      --accent: #2f81f7;
+      }
+    }
+    .figure { font: 700 16px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--strong); }
+    .caption { font: 600 8px 'Segoe UI', Ubuntu, Sans-Serif; fill: var(--dim); letter-spacing: .09em; }
+    .qualifier { font: 600 6.8px 'Segoe UI', Ubuntu, Sans-Serif; fill: var(--dim); letter-spacing: .09em; opacity: .75; }
+    .icon { fill: var(--accent); }
+    .stagger, .spark { opacity: 0; animation: fadeIn .35s ease-out forwards; }
+    .spark { animation-delay: 2630ms; }
+    .spark-line { stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; fill: none; }
+    .spark-area { fill: var(--accent); opacity: .14; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+  </style>
+  <rect x="0.5" y="0.5" rx="6" width="619" height="485" stroke="var(--border)" fill="var(--bg)"/>
+  <g transform="translate(22, 22)">
+      <g class="stagger" style="animation-delay: 200ms" transform="translate(0, 0)">
+        <text class="figure" x="0" y="16">1,200</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">TOTAL COMMITS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 290ms" transform="translate(146, 0)">
+        <text class="figure" x="0" y="16">400</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">COMMITS</text>
+        <text class="qualifier" x="15" y="43">2026</text>
+      </g>
+      <g class="stagger" style="animation-delay: 380ms" transform="translate(292, 0)">
+        <text class="figure" x="0" y="16">800</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="caption" x="15" y="33">TOTAL PRS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 470ms" transform="translate(438, 0)">
+        <text class="figure" x="0" y="16">90.0%</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="caption" x="15" y="33">PR MERGE RATE</text>
+      </g>
+      <g class="stagger" style="animation-delay: 560ms" transform="translate(0, 58)">
+        <text class="figure" x="0" y="16">600</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="caption" x="15" y="33">PRS REVIEWED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 650ms" transform="translate(146, 58)">
+        <text class="figure" x="0" y="16">50</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="caption" x="15" y="33">TOTAL ISSUES</text>
+      </g>
+      <g class="stagger" style="animation-delay: 740ms" transform="translate(292, 58)">
+        <text class="figure" x="0" y="16">120</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="caption" x="15" y="33">TOTAL STARS EARNED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 830ms" transform="translate(438, 58)">
+        <text class="figure" x="0" y="16">30</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="caption" x="15" y="33">TOTAL FORKS EARNED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 920ms" transform="translate(0, 106)">
+        <text class="figure" x="0" y="16">45</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="caption" x="15" y="33">TOTAL WATCHERS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1010ms" transform="translate(146, 106)">
+        <text class="figure" x="0" y="16">80</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">FOLLOWERS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1100ms" transform="translate(292, 106)">
+        <text class="figure" x="0" y="16">60</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">FOLLOWING</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1190ms" transform="translate(438, 106)">
+        <text class="figure" x="0" y="16">150</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"/></svg>
+        <text class="caption" x="15" y="33">STARS GIVEN</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1280ms" transform="translate(0, 154)">
+        <text class="figure" x="0" y="16">40</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">REPOSITORIES</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1370ms" transform="translate(146, 154)">
+        <text class="figure" x="0" y="16">10</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">PUBLIC GISTS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1460ms" transform="translate(292, 154)">
+        <text class="figure" x="0" y="16">3</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">ORGANIZATIONS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1550ms" transform="translate(438, 154)">
+        <text class="figure" x="0" y="16">25.0 MB</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">REPOSITORY SIZE</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1640ms" transform="translate(0, 202)">
+        <text class="figure" x="0" y="16">8.0 yrs</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">ACCOUNT AGE</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1730ms" transform="translate(146, 202)">
+        <text class="figure" x="0" y="16">35</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
+        <text class="caption" x="15" y="33">CONTRIBUTED TO</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1820ms" transform="translate(292, 202)">
+        <text class="figure" x="0" y="16">720</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="caption" x="15" y="33">PRS MERGED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 1910ms" transform="translate(438, 202)">
+        <text class="figure" x="0" y="16">500</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+        <text class="caption" x="15" y="33">PRS COMMENTED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2000ms" transform="translate(0, 250)">
+        <text class="figure" x="0" y="16">90</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="caption" x="15" y="33">ISSUES COMMENTED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2090ms" transform="translate(146, 250)">
+        <text class="figure" x="0" y="16">12</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="caption" x="15" y="33">DISCUSSIONS STARTED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2180ms" transform="translate(292, 250)">
+        <text class="figure" x="0" y="16">8</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/></svg>
+        <text class="caption" x="15" y="33">DISCUSSIONS ANSWERED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2270ms" transform="translate(438, 250)">
+        <text class="figure" x="0" y="16">1,500</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">CONTRIBUTIONS</text>
+        <text class="qualifier" x="15" y="43">2026</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2360ms" transform="translate(0, 308)">
+        <text class="figure" x="0" y="16">5 days</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">CURRENT STREAK</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2450ms" transform="translate(146, 308)">
+        <text class="figure" x="0" y="16">30 days</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">LONGEST STREAK</text>
+      </g>
+      <g class="stagger" style="animation-delay: 2540ms" transform="translate(292, 308)">
+        <text class="figure" x="0" y="16">600 days</text>
+        <svg class="icon" viewBox="0 0 16 16" width="10" height="10" x="0" y="25.2"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"/></svg>
+        <text class="caption" x="15" y="33">ACTIVE DAYS</text>
+      </g>
+      <g class="spark" transform="translate(0, 372)">
+        <path class="spark-area" d="M0.0 51.2 L16.5 51.2 L32.9 50.4 L49.4 50.4 L65.8 49.6 L82.3 47.9 L98.7 48.8 L115.2 47.1 L131.7 44.7 L148.1 46.3 L164.6 42.3 L181.0 43.9 L197.5 40.6 L213.9 37.4 L230.4 39.8 L246.9 34.1 L263.3 36.6 L279.8 30.9 L296.2 32.5 L312.7 27.6 L329.1 30.1 L345.6 24.4 L362.1 26.8 L378.5 21.1 L395.0 23.6 L411.4 17.9 L427.9 20.3 L444.3 14.6 L460.8 17.1 L477.3 11.4 L493.7 13.8 L510.2 7.3 L526.6 9.8 L543.1 3.3 L559.5 5.7 L576.0 0.0 L576.0 52 L0 52 Z"/>
+        <path class="spark-line" d="M0.0 51.2 L16.5 51.2 L32.9 50.4 L49.4 50.4 L65.8 49.6 L82.3 47.9 L98.7 48.8 L115.2 47.1 L131.7 44.7 L148.1 46.3 L164.6 42.3 L181.0 43.9 L197.5 40.6 L213.9 37.4 L230.4 39.8 L246.9 34.1 L263.3 36.6 L279.8 30.9 L296.2 32.5 L312.7 27.6 L329.1 30.1 L345.6 24.4 L362.1 26.8 L378.5 21.1 L395.0 23.6 L411.4 17.9 L427.9 20.3 L444.3 14.6 L460.8 17.1 L477.3 11.4 L493.7 13.8 L510.2 7.3 L526.6 9.8 L543.1 3.3 L559.5 5.7 L576.0 0.0"/>
+        <g transform="translate(0, 68)">
+          <text class="caption" x="0" y="0">2023</text>
+          <text class="caption" x="288" y="0" text-anchor="middle">950 CONTRIBUTIONS</text>
+          <text class="caption" x="576" y="0" text-anchor="end">2026</text>
+        </g>
+      </g>
+  </g>
+</svg>
