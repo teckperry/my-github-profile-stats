@@ -1,39 +1,21 @@
 # My GitHub Profile Stats
 
-Profile cards with nothing and nobody else in the chain. No third-party action, no
-service to sign up for, no instance to deploy, no app to authorise against your
-account. GitHub Actions builds them, your own repository stores them.
-
 <p align="center">
   <img src="examples/stats-tiles-icons.svg" width="470" alt="">
   <br>
   <img src="examples/languages.svg" width="470" alt="">
   <br>
-  <sub><i>Placeholder figures. See <a href="#formats">all formats</a>.</i></sub>
+  <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
 </p>
 
-## Contents
+## Nobody else in the chain
 
-- [Why it exists](#why-it-exists)
-- [Do you need the read token?](#do-you-need-the-read-token)
-- [How to use it](#how-to-use-it)
-- [Formats](#formats)
-- [Configuration](#configuration)
-  - [Look](#look)
-  - [Rows — on by default](#rows--on-by-default)
-  - [Rows — off by default](#rows--off-by-default)
-  - [Languages](#languages)
-- [Licence](#licence)
+A profile card normally means handing your account to somebody: authorising a hosted
+instance to read your private contributions, deploying your own copy of one, or running an
+action that downloads its renderer at build time and runs it with your token in the
+environment.
 
-## Why it exists
-
-A profile card normally means handing your account to someone. Either you authorise a
-hosted instance to read your private contributions, or you deploy your own copy of one
-somewhere, or you run an action that downloads its renderer at build time and runs it
-with your token in the environment. In each case something outside your control holds,
-or briefly holds, a credential to your account.
-
-This is two repositories and nothing else:
+This is two repositories.
 
 ```
   your fork · private                      you/you · public
@@ -46,81 +28,44 @@ This is two repositories and nothing else:
   holds both secrets                       holds no secrets
 ```
 
-The private one is granted access to your account. The public one is granted nothing:
-it receives two SVG files and never learns how they were made. The only thing that
-crosses the boundary is a rendered image, and the tokens never leave the repository you
-own and control.
+The private one does the work. The public one receives two SVG files and holds nothing.
+Nothing is installed at build time — no `package.json`, no lockfile — and nothing is
+requested from anyone when a visitor opens your profile, because the card is a file in your
+own repository.
 
-At build time nothing is installed — no `package.json`, no lockfile, no dependency to
-resolve — and `actions/checkout` is the only action. At view time the card is a file in
-your repository, so opening your profile does not call anybody's server, and there is no
-hosted instance whose rate limit or uptime you inherit.
+Two consequences: the card **says what it measured**, and it **drops rows it cannot stand
+behind** rather than printing a smaller number as though it were the answer. Both, with
+measurements, in [docs/](#reference).
 
-To be exact rather than to oversell: the one party involved is GitHub, whose runner
-executes the workflow and whose API the figures come from. Every request a run makes is
-printed at the end of it, so that claim is checkable rather than asserted.
+**You can also run it without the read token at all**, on the one Actions provides by
+itself. You get thirteen rows instead of twenty-seven and the languages card says `public
+pull requests`. Your call — [security.md](docs/security.md#without-the-read-token).
 
-Two consequences worth naming: because the token is yours, the card **says what it
-measured** (`calculated analyzing all 800 pull requests`), and because nothing is
-guessed on your behalf, it **drops rows it cannot stand behind** rather than printing a
-smaller number as if it were the answer. Both, with measurements:
-**[docs/why.md](docs/why.md)**.
-
-## Do you need the read token?
-
-Your call, and the cards work either way.
-
-**Without it** the workflow runs on the token GitHub Actions provides by itself. That
-token sees only public activity, so the 13 rows marked *built-in* below are drawn and
-the 14 marked *read token* are **dropped rather than guessed** — the card shows less,
-and never shows a smaller number as though it were the total. The languages card says
-`public pull requests` instead of `pull requests`.
-
-**With it** everything is counted, private repositories included. On one account the
-difference was 949 commits against 106, and 716 pull requests against 44 — because
-almost all of that work is private.
-
-The cost of having it is real and worth stating: a classic token with `repo` has no
-read-only variant, so it also grants write access to every repository you can reach.
-That is why the fork holding it is private.
-
-> The **write** token from step 3 is not optional either way: `GITHUB_TOKEN` cannot
-> write to another repository, which is how the cards reach your profile. It is
-> fine-grained and scoped to that one repository, so it carries nothing beyond it.
-
-## How to use it
+## Setup
 
 **1 · Fork this repository, then make your fork private.**
-Settings → General → Danger Zone → Change visibility. The fork will hold a token that
-can read your private work, and a private repository keeps both the secret and the run
-logs out of public view.
+Settings → General → Danger Zone → Change visibility. Skip this and your token sits in a
+repository whose logs anyone can read.
 
-**2 · Create the read token.**
+**2 · Create the read token** — optional, see above.
 [New classic token](https://github.com/settings/tokens/new) → check **`repo`** and
-**`read:user`**, nothing else → Generate → copy.
-
-> `repo` has no read-only variant, so it also grants write access to every repository
-> you can reach. That is why step 1 is not optional.
+**`read:user`** → Generate → copy.
 
 **3 · Create the write token.**
 [New fine-grained token](https://github.com/settings/personal-access-tokens/new) →
-Repository access: **Only select repositories** → pick the repository named after you →
-Permissions → Repository → **Contents: Read and write** → Generate → copy.
+Repository access: **Only select repositories** → the one named after you → Permissions →
+Repository → **Contents: Read and write** → Generate → copy.
 
-**4 · Store both in your fork.**
+**4 · Store them in your fork.**
 Settings → Secrets and variables → Actions → New repository secret:
 
 | Name | Value |
 | --- | --- |
-| `STATS_READ_PAT` | the classic token from step 2 |
-| `PROFILE_WRITE_TOKEN` | the fine-grained token from step 3 |
+| `STATS_READ_PAT` | the token from step 2, if you made one |
+| `PROFILE_WRITE_TOKEN` | the token from step 3 |
 
-**5 · Run it.**
-Actions → *Update profile cards* → Run workflow. It writes `profile/stats.svg` and
-`profile/languages.svg` into your profile repository, then runs itself daily.
-
-> Tick **dry_run** to print the numbers without committing — the way to try a token or
-> a setting before publishing the result.
+**5 · Run it.** Actions → *Update profile cards* → Run workflow. Tick **dry_run** to print
+the numbers without committing. After that it runs daily.
 
 **6 · Embed the cards** in your profile README:
 
@@ -129,113 +74,37 @@ Actions → *Update profile cards* → Run workflow. It writes `profile/stats.sv
 ![Languages](./profile/languages.svg)
 ```
 
-**7 · Choose what to show.** Edit the `env:` block in
-`.github/workflows/update-profile-cards.yml`. Every option is listed there with a
-comment, and the reference is [below](#configuration).
-
-To pick rows by looking at them rather than reading a table:
-
-```bash
-STATS_TOKEN=$(gh auth token) STATS_USERNAME=<your-login> node scripts/preview.mjs
-open preview/index.html
-```
+**7 · Choose what to show** in the workflow's `env:` block —
+[configuration.md](docs/configuration.md).
 
 ## Formats
 
 | | |
 | --- | --- |
-| `CARD_LAYOUT=tiles` | <img src="examples/stats-tiles.svg" width="330" alt=""> |
-| `CARD_LAYOUT=tiles` + `CARD_ICONS=true` | <img src="examples/stats-tiles-icons.svg" width="330" alt=""> |
-| `CARD_LAYOUT=mono` | <img src="examples/stats-mono.svg" width="330" alt=""> |
-| `CARD_LAYOUT=mono` + `CARD_ICONS=true` | <img src="examples/stats-mono-icons.svg" width="330" alt=""> |
-| `CARD_THEME=light` | <img src="examples/stats-tiles-light.svg" width="330" alt=""> |
-| `CARD_THEME=dark` | <img src="examples/stats-mono-dark.svg" width="330" alt=""> |
-| every row on, `tiles` | <img src="examples/stats-tiles-dense.svg" width="330" alt=""> |
-| every row on, `mono` | <img src="examples/stats-mono-dense.svg" width="330" alt=""> |
-| languages | <img src="examples/languages.svg" width="330" alt=""> |
-| languages, `MANUAL_LANGUAGES` | <img src="examples/languages-manual.svg" width="330" alt=""> |
+| `CARD_LAYOUT=tiles` | <img src="examples/stats-tiles.svg" width="320" alt=""> |
+| `tiles` + `CARD_ICONS=true` | <img src="examples/stats-tiles-icons.svg" width="320" alt=""> |
+| `CARD_LAYOUT=mono` | <img src="examples/stats-mono.svg" width="320" alt=""> |
+| `mono` + `CARD_ICONS=true` | <img src="examples/stats-mono-icons.svg" width="320" alt=""> |
+| `CARD_THEME=light` | <img src="examples/stats-tiles-light.svg" width="320" alt=""> |
+| `CARD_THEME=dark` | <img src="examples/stats-mono-dark.svg" width="320" alt=""> |
+| every row on, `tiles` | <img src="examples/stats-tiles-dense.svg" width="320" alt=""> |
+| every row on, `mono` | <img src="examples/stats-mono-dense.svg" width="320" alt=""> |
+| languages | <img src="examples/languages.svg" width="320" alt=""> |
+| languages, `MANUAL_LANGUAGES` | <img src="examples/languages-manual.svg" width="320" alt=""> |
 
-Regenerate them with `node scripts/examples.mjs` — placeholder data, no token needed.
+`node scripts/examples.mjs` regenerates them from placeholder data — no token needed.
 
-## Configuration
+## Reference
 
-### Look
-
-| Variable | Values | Works with |
-| --- | --- | --- |
-| `CARD_LAYOUT` | `tiles`, `mono` | built-in |
-| `CARD_THEME` | `dark`, `light`, `auto` — follows the viewer's setting | built-in |
-| `CARD_ACCENT` | any hex; empty uses the theme's own | built-in |
-| `CARD_ICONS` | `true`, `false` | built-in |
-| `SHOW_SPARKLINE` | `true`, `false` | read token |
-| `METRIC_ORDER` | comma-separated metric keys, in the order you want them | built-in |
-
-`SHOW_SPARKLINE` reads the contribution calendar, which needs the read token; without
-it the chart is left out rather than drawn from public days alone.
-
-An accent that cannot be read on the surface it lands on is corrected rather than
-drawn as given, and the run says so.
-
-### Rows — on by default
-
-| Variable | Row | Works with |
-| --- | --- | --- |
-| `SHOW_STARS` | Total Stars Earned | built-in |
-| `SHOW_COMMITS` | Total Commits | read token |
-| `SHOW_PRS` | Total PRs | read token |
-| `SHOW_ISSUES` | Total Issues | read token |
-| `SHOW_CONTRIBUTED_TO` | Contributed to | read token |
-
-### Rows — off by default
-
-| Variable | Row | Works with |
-| --- | --- | --- |
-| `SHOW_FORKS` | Total Forks Earned | built-in |
-| `SHOW_WATCHERS` | Total Watchers | built-in |
-| `SHOW_FOLLOWERS` | Followers | built-in |
-| `SHOW_FOLLOWING` | Following | built-in |
-| `SHOW_STARS_GIVEN` | Stars Given | built-in |
-| `SHOW_REPOS` | Repositories | built-in |
-| `SHOW_GISTS` | Public Gists | built-in |
-| `SHOW_ORGANIZATIONS` | Organizations | built-in |
-| `SHOW_DISK_USAGE` | Repository Size | built-in |
-| `SHOW_ACCOUNT_AGE` | Account Age | built-in |
-| `SHOW_PRS_MERGED` | PRs Merged | read token |
-| `SHOW_PRS_MERGE_RATE` | PR Merge Rate | read token |
-| `SHOW_PRS_REVIEWED` | PRs Reviewed | read token |
-| `SHOW_PRS_COMMENTED` | PRs Commented | read token |
-| `SHOW_ISSUES_COMMENTED` | Issues Commented | read token |
-| `SHOW_DISCUSSIONS_STARTED` | Discussions Started | built-in |
-| `SHOW_DISCUSSIONS_ANSWERED` | Discussions Answered | built-in |
-| `SHOW_COMMITS_THIS_YEAR` | Commits (YYYY) | read token |
-| `SHOW_CONTRIBUTIONS_THIS_YEAR` | Contributions (YYYY) | read token |
-| `SHOW_STREAK_CURRENT` | Current Streak | read token |
-| `SHOW_STREAK_LONGEST` | Longest Streak | read token |
-| `SHOW_ACTIVE_DAYS` | Active Days | read token |
-
-Only the APIs the enabled rows need are called: the default set costs two requests.
-`YYYY` is the current year, computed per run.
-
-**built-in** means the row works on the token Actions provides by itself, with nothing
-for you to create. **read token** means it needs the classic token from step 2, because
-the figure includes private work and cannot be reached without it. A row marked *read
-token* is dropped, not guessed, when the token is missing — see
-[Do you need the read token?](#do-you-need-the-read-token).
-
-### Languages
-
-| Variable | Values | Works with |
-| --- | --- | --- |
-| `PRS_NUMBER_TO_CALCULATE_LANGUAGES` | `all` (default), or how many recent pull requests to read | built-in, public only |
-| `EXCLUDED_LANGUAGES` | comma-separated names to leave out | either |
-| `MANUAL_LANGUAGES` | `Terraform 54, TypeScript 21` — declared outright | **no token used** |
-
-The languages card runs on either token: with the built-in one it reads your public pull
-requests and says `public pull requests` on the card, with the read token it reads them
-all. `MANUAL_LANGUAGES` makes no request of any kind, so it needs no read access at all.
-
-A limit larger than your history is not an error: it reads what exists and says so.
+| | |
+| --- | --- |
+| [configuration.md](docs/configuration.md) | every option, and which token it needs |
+| [security.md](docs/security.md) | the two-repository boundary, the tokens, what a run contacts |
+| [metrics.md](docs/metrics.md) | what each row measures, and the rows that were removed |
+| [languages.md](docs/languages.md) | why changed files rather than repository languages |
+| [cost.md](docs/cost.md) | rate limits, Actions minutes, and where the real limit is |
+| [design.md](docs/design.md) | colour, contrast, layout and icon decisions |
 
 ## Licence
 
-MIT — see [`LICENSE`](LICENSE). Icon and colour attributions in [`NOTICE`](NOTICE).
+MIT — see [`LICENSE`](LICENSE). Attributions in [`NOTICE`](NOTICE).
