@@ -4,6 +4,7 @@
 // for its README to render, so a card that exists is a card that can be found.
 //
 //   GITHUB_TOKEN=$(gh auth token) node scripts/adopters.mjs
+//   ... --write   also updates the count between the markers in README.md
 
 const TOKEN = process.env.GITHUB_TOKEN ?? process.env.STATS_TOKEN;
 if (!TOKEN) {
@@ -30,6 +31,27 @@ const result = await response.json();
 
 // One profile can publish both cards, so repositories are what to count, not files.
 const repos = new Set(result.items.map((item) => item.repository.full_name));
+
+const phrase =
+  repos.size === 0
+    ? "no public profiles counted yet"
+    : `used by ${repos.size} public profile${repos.size === 1 ? "" : "s"}`;
+
+if (process.argv.includes("--write")) {
+  const { readFile, writeFile } = await import("node:fs/promises");
+  const readme = await readFile("README.md", "utf8");
+  const pattern = /(<!-- adopters:start -->)[\s\S]*?(<!-- adopters:end -->)/;
+  if (!pattern.test(readme)) {
+    throw new Error("README.md has no adopters markers to write between.");
+  }
+  const updated = readme.replace(pattern, `$1${phrase}$2`);
+  if (updated !== readme) {
+    await writeFile("README.md", updated, "utf8");
+    console.log(`README updated: ${phrase}`);
+  } else {
+    console.log(`README already says: ${phrase}`);
+  }
+}
 
 console.log(`Query: ${QUERY}`);
 console.log(`Files matched: ${result.total_count}${result.incomplete_results ? " (incomplete)" : ""}`);

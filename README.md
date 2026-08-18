@@ -6,6 +6,8 @@
   <img src="examples/languages.svg" width="470" alt="">
   <br>
   <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
+  <br>
+  <sub><!-- adopters:start -->no public profiles counted yet<!-- adopters:end --></sub>
 </p>
 
 ## Nobody else in the chain
@@ -33,9 +35,10 @@ Nothing is installed at build time — no `package.json`, no lockfile — and no
 requested from anyone when a visitor opens your profile, because the card is a file in your
 own repository.
 
-The cards carry one comment naming this project, which is how its users get counted —
-nothing is sent anywhere, and deleting the line costs you nothing.
-[How that works](docs/design.md#the-signature).
+The cards carry one comment naming this project. It exists for **one** reason — counting
+how many people use it, since a template copy cannot be counted the way a fork can. It
+sends nothing, identifies nobody, and **you can delete it yourself**: one line, and the
+card is identical. [How the counting works](docs/design.md#the-signature).
 
 Two consequences: the card **says what it measured**, and it **drops rows it cannot stand
 behind** rather than printing a smaller number as though it were the answer. Both, with

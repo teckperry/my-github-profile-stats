@@ -1,0 +1,34 @@
+name: Count adopters
+
+# Refreshes the number in the readme. No external service is involved: the count comes
+# from GitHub's code search over the signature the cards carry, and the result is
+# committed as text rather than fetched by a badge when somebody opens the page.
+
+on:
+  schedule:
+    - cron: "37 5 * * 1"
+  workflow_dispatch:
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Count and write
+        env:
+          # Code search will not answer unauthenticated. The built-in token is enough
+          # because everything being searched is public.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/adopters.mjs --write
+
+      - name: Commit if the number changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: refresh the adopter count" || exit 0
+          git push
