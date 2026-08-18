@@ -18,7 +18,7 @@ environment.
 This is two repositories.
 
 ```
-  your fork · private                      you/you · public
+  your copy · private                      you/you · public
   ───────────────────                      ────────────────
   STATS_READ_PAT       ─── reads ──►  your account
   PROFILE_WRITE_TOKEN  ─── writes ─────►   profile/stats.svg
@@ -43,9 +43,20 @@ pull requests`. Your call — [security.md](docs/security.md#without-the-read-to
 
 ## Setup
 
-**1 · Fork this repository, then make your fork private.**
-Settings → General → Danger Zone → Change visibility. Skip this and your token sits in a
-repository whose logs anyone can read.
+**1 · Make your own copy.**
+
+On this page: **Use this template** → **Create a new repository** → give it a name →
+set **Private** → **Create repository**.
+
+Private matters twice over. It keeps your token out of a repository whose Actions logs
+anyone can read, and it keeps the schedule running: GitHub disables scheduled workflows in
+a **public** repository after 60 days without activity, and this one never commits to
+itself — it writes to your profile repository instead.
+
+> Not the **Fork** button. A fork has Actions switched off until you enable them and its
+> scheduled workflows disabled separately, so the card never builds until you find both
+> switches. A template copy is a normal repository with neither problem. The one thing a
+> fork gives you is `Sync fork` for updates; a copy takes them by hand.
 
 **2 · Create the read token** — optional, see above.
 [New classic token](https://github.com/settings/tokens/new) → check **`repo`** and
@@ -56,7 +67,7 @@ repository whose logs anyone can read.
 Repository access: **Only select repositories** → the one named after you → Permissions →
 Repository → **Contents: Read and write** → Generate → copy.
 
-**4 · Store them in your fork.**
+**4 · Store them in your copy.**
 Settings → Secrets and variables → Actions → New repository secret:
 
 | Name | Value |
