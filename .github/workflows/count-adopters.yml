@@ -1,8 +1,8 @@
 name: Count adopters
 
-# Refreshes the number in the readme. No external service is involved: the count comes
-# from GitHub's code search over the signature the cards carry, and the result is
-# committed as text rather than fetched by a badge when somebody opens the page.
+# Redraws the badge in the readme. No external service is involved: the count comes from
+# GitHub's code search over the signature the cards carry, and the badge is drawn here and
+# committed, rather than fetched from a badge service when somebody opens the page.
 
 on:
   schedule:
@@ -30,6 +30,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add assets/adopters.svg
           git commit -m "chore: refresh the adopter count" || exit 0
           git push

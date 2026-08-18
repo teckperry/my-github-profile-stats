@@ -6,8 +6,10 @@
   <img src="examples/languages.svg" width="470" alt="">
   <br>
   <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
-  <br>
-  <sub><!-- adopters:start -->used by 0 public profiles<!-- adopters:end --></sub>
+</p>
+
+<p align="center">
+  <img src="assets/adopters.svg" alt="" height="30">
 </p>
 
 ## Nobody else in the chain
