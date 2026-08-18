@@ -6,7 +6,8 @@ name: Count adopters
 
 on:
   schedule:
-    - cron: "37 5 * * 1"
+    # Daily, and off the hour to stay clear of the busiest scheduling slots.
+    - cron: "37 5 * * *"
   workflow_dispatch:
 
 jobs:
