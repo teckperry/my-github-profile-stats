@@ -38,7 +38,10 @@ jobs:
 
       - name: Render the stats card
         env:
-          STATS_TOKEN: ${{ secrets.STATS_READ_PAT }}
+          # Falls back to the token Actions provides if you never made one. That one
+          # sees only public activity, so rows needing private access are dropped
+          # rather than filled with a public-only figure.
+          STATS_TOKEN: ${{ secrets.STATS_READ_PAT || secrets.GITHUB_TOKEN }}
           STATS_USERNAME: ${{ github.repository_owner }}
           CARD_OUTPUT: profile-repo/profile/stats.svg
 
@@ -91,7 +94,10 @@ jobs:
       # a reader should be able to take one without the other.
       - name: Render the languages card
         env:
-          STATS_TOKEN: ${{ secrets.STATS_READ_PAT }}
+          # Falls back to the token Actions provides if you never made one. That one
+          # sees only public activity, so rows needing private access are dropped
+          # rather than filled with a public-only figure.
+          STATS_TOKEN: ${{ secrets.STATS_READ_PAT || secrets.GITHUB_TOKEN }}
           STATS_USERNAME: ${{ github.repository_owner }}
           LANGUAGES_OUTPUT: profile-repo/profile/languages.svg
           CARD_THEME: "auto"
