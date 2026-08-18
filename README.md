@@ -33,6 +33,10 @@ Nothing is installed at build time — no `package.json`, no lockfile — and no
 requested from anyone when a visitor opens your profile, because the card is a file in your
 own repository.
 
+The cards carry one comment naming this project, which is how its users get counted —
+nothing is sent anywhere, and deleting the line costs you nothing.
+[How that works](docs/design.md#the-signature).
+
 Two consequences: the card **says what it measured**, and it **drops rows it cannot stand
 behind** rather than printing a smaller number as though it were the answer. Both, with
 measurements, in [docs/](#reference).
