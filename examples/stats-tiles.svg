@@ -1,0 +1,84 @@
+<svg
+  width="453"
+  height="357"
+  viewBox="0 0 453 357"
+  style="max-width: 100%; height: auto;"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="descId"
+>
+  <title id="titleId">Example User&#39;s GitHub stats</title>
+  <desc id="descId">Total Commits: 1,200, Commits (2026): 400, Total PRs: 800, PR Merge Rate: 90.0%, PRs Reviewed: 600, Total Issues: 50, Total Stars Earned: 120. Contributions: 950</desc>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --border: #d0d7de;
+      --text: #59636e;
+      --strong: #1f2328;
+      --dim: #818b98;
+      --accent: #0969da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+      --bg: #0d1117;
+      --border: #30363d;
+      --text: #7d8590;
+      --strong: #e6edf3;
+      --dim: #6e7681;
+      --accent: #2f81f7;
+      }
+    }
+    .figure { font: 700 30px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--strong); }
+    .caption { font: 600 9.5px 'Segoe UI', Ubuntu, Sans-Serif; fill: var(--dim); letter-spacing: .09em; }
+    .qualifier { font: 600 8.1px 'Segoe UI', Ubuntu, Sans-Serif; fill: var(--dim); letter-spacing: .09em; opacity: .75; }
+    .icon { fill: var(--accent); }
+    .stagger, .spark { opacity: 0; animation: fadeIn .35s ease-out forwards; }
+    .spark { animation-delay: 830ms; }
+    .spark-line { stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; fill: none; }
+    .spark-area { fill: var(--accent); opacity: .14; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+  </style>
+  <rect x="0.5" y="0.5" rx="6" width="452" height="356" stroke="var(--border)" fill="var(--bg)"/>
+  <g transform="translate(22, 22)">
+      <g class="stagger" style="animation-delay: 200ms" transform="translate(0, 0)">
+        <text class="figure" x="0" y="30">1,200</text>
+        <text class="caption" x="0" y="47">TOTAL COMMITS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 290ms" transform="translate(139, 0)">
+        <text class="figure" x="0" y="30">400</text>
+        <text class="caption" x="0" y="47">COMMITS</text>
+        <text class="qualifier" x="0" y="58">2026</text>
+      </g>
+      <g class="stagger" style="animation-delay: 380ms" transform="translate(278, 0)">
+        <text class="figure" x="0" y="30">800</text>
+        <text class="caption" x="0" y="47">TOTAL PRS</text>
+      </g>
+      <g class="stagger" style="animation-delay: 470ms" transform="translate(0, 83)">
+        <text class="figure" x="0" y="30">90.0%</text>
+        <text class="caption" x="0" y="47">PR MERGE RATE</text>
+      </g>
+      <g class="stagger" style="animation-delay: 560ms" transform="translate(139, 83)">
+        <text class="figure" x="0" y="30">600</text>
+        <text class="caption" x="0" y="47">PRS REVIEWED</text>
+      </g>
+      <g class="stagger" style="animation-delay: 650ms" transform="translate(278, 83)">
+        <text class="figure" x="0" y="30">50</text>
+        <text class="caption" x="0" y="47">TOTAL ISSUES</text>
+      </g>
+      <g class="stagger" style="animation-delay: 740ms" transform="translate(0, 155)">
+        <text class="figure" x="0" y="30">120</text>
+        <text class="caption" x="0" y="47">TOTAL STARS EARNED</text>
+      </g>
+      <g class="spark" transform="translate(0, 243)">
+        <path class="spark-area" d="M0.0 51.2 L11.7 51.2 L23.4 50.4 L35.1 50.4 L46.7 49.6 L58.4 47.9 L70.1 48.8 L81.8 47.1 L93.5 44.7 L105.2 46.3 L116.9 42.3 L128.5 43.9 L140.2 40.6 L151.9 37.4 L163.6 39.8 L175.3 34.1 L187.0 36.6 L198.7 30.9 L210.3 32.5 L222.0 27.6 L233.7 30.1 L245.4 24.4 L257.1 26.8 L268.8 21.1 L280.5 23.6 L292.1 17.9 L303.8 20.3 L315.5 14.6 L327.2 17.1 L338.9 11.4 L350.6 13.8 L362.3 7.3 L373.9 9.8 L385.6 3.3 L397.3 5.7 L409.0 0.0 L409.0 52 L0 52 Z"/>
+        <path class="spark-line" d="M0.0 51.2 L11.7 51.2 L23.4 50.4 L35.1 50.4 L46.7 49.6 L58.4 47.9 L70.1 48.8 L81.8 47.1 L93.5 44.7 L105.2 46.3 L116.9 42.3 L128.5 43.9 L140.2 40.6 L151.9 37.4 L163.6 39.8 L175.3 34.1 L187.0 36.6 L198.7 30.9 L210.3 32.5 L222.0 27.6 L233.7 30.1 L245.4 24.4 L257.1 26.8 L268.8 21.1 L280.5 23.6 L292.1 17.9 L303.8 20.3 L315.5 14.6 L327.2 17.1 L338.9 11.4 L350.6 13.8 L362.3 7.3 L373.9 9.8 L385.6 3.3 L397.3 5.7 L409.0 0.0"/>
+        <g transform="translate(0, 68)">
+          <text class="caption" x="0" y="0">2023</text>
+          <text class="caption" x="204.5" y="0" text-anchor="middle">950 CONTRIBUTIONS</text>
+          <text class="caption" x="409" y="0" text-anchor="end">2026</text>
+        </g>
+      </g>
+  </g>
+</svg>

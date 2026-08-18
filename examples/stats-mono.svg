@@ -1,0 +1,77 @@
+<svg
+  width="528"
+  height="259"
+  viewBox="0 0 528 259"
+  style="max-width: 100%; height: auto;"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="descId"
+>
+  <title id="titleId">Example User&#39;s GitHub stats</title>
+  <desc id="descId">Total Commits: 1,200, Commits (2026): 400, Total PRs: 800, PR Merge Rate: 90.0%, PRs Reviewed: 600, Total Issues: 50, Total Stars Earned: 120. Contributions: 950</desc>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --border: #d0d7de;
+      --text: #59636e;
+      --strong: #1f2328;
+      --dim: #818b98;
+      --accent: #0969da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+      --bg: #0d1117;
+      --border: #30363d;
+      --text: #7d8590;
+      --strong: #e6edf3;
+      --dim: #6e7681;
+      --accent: #2f81f7;
+      }
+    }
+    .line, .tick { font: 400 13px ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+    .dim { fill: var(--text); }
+    .dots { fill: var(--border); }
+    .num { fill: var(--strong); font-weight: 700; }
+    .tick { font-size: 10.5px; fill: var(--dim); }
+    .icon { fill: var(--accent); }
+    .spark-line { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+    .col, .spark { opacity: 0; animation: fadeIn .3s ease-out forwards; }
+    .col:nth-of-type(1) { animation-delay: 150ms }
+    .spark { animation-delay: 640ms; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+  </style>
+  <rect x="0.5" y="0.5" rx="6" width="527" height="258" stroke="var(--border)" fill="var(--bg)"/>
+  <g transform="translate(22, 22)">
+      <g class="col" transform="translate(0.0, 0)">
+        
+        <text class="line" x="0.0" y="12"><tspan class="dim">Total Commits </tspan><tspan class="dots">···········································</tspan></text>
+        <text class="line num" x="483.6" y="12" text-anchor="end">1,200</text>
+        
+        <text class="line" x="0.0" y="33"><tspan class="dim">Commits (2026) </tspan><tspan class="dots">············································</tspan></text>
+        <text class="line num" x="483.6" y="33" text-anchor="end">400</text>
+        
+        <text class="line" x="0.0" y="54"><tspan class="dim">Total PRs </tspan><tspan class="dots">·················································</tspan></text>
+        <text class="line num" x="483.6" y="54" text-anchor="end">800</text>
+        
+        <text class="line" x="0.0" y="75"><tspan class="dim">PR Merge Rate </tspan><tspan class="dots">···········································</tspan></text>
+        <text class="line num" x="483.6" y="75" text-anchor="end">90.0%</text>
+        
+        <text class="line" x="0.0" y="96"><tspan class="dim">PRs Reviewed </tspan><tspan class="dots">··············································</tspan></text>
+        <text class="line num" x="483.6" y="96" text-anchor="end">600</text>
+        
+        <text class="line" x="0.0" y="117"><tspan class="dim">Total Issues </tspan><tspan class="dots">···············································</tspan></text>
+        <text class="line num" x="483.6" y="117" text-anchor="end">50</text>
+        
+        <text class="line" x="0.0" y="138"><tspan class="dim">Total Stars Earned </tspan><tspan class="dots">········································</tspan></text>
+        <text class="line num" x="483.6" y="138" text-anchor="end">120</text>
+      </g>
+      <g class="spark" transform="translate(0, 165)">
+        <path class="spark-line" d="M0.0 33.5 L13.8 33.5 L27.6 32.9 L41.5 32.9 L55.3 32.4 L69.1 31.3 L82.9 31.9 L96.7 30.8 L110.5 29.2 L124.4 30.3 L138.2 27.6 L152.0 28.7 L165.8 26.6 L179.6 24.4 L193.4 26.0 L207.3 22.3 L221.1 23.9 L234.9 20.2 L248.7 21.3 L262.5 18.1 L276.3 19.7 L290.2 15.9 L304.0 17.5 L317.8 13.8 L331.6 15.4 L345.4 11.7 L359.2 13.3 L373.1 9.6 L386.9 11.2 L400.7 7.4 L414.5 9.0 L428.3 4.8 L442.1 6.4 L456.0 2.1 L469.8 3.7 L483.6 0.0"/>
+        <text class="tick" x="0" y="50">2023</text>
+        <text class="tick" x="241.8" y="50" text-anchor="middle">950 contributions</text>
+        <text class="tick" x="483.6" y="50" text-anchor="end">2026</text>
+      </g>
+  </g>
+</svg>
