@@ -5,7 +5,7 @@
 GitHub's API is rate-limited, not billed. There is **no monthly API quota** — the
 `rate_limit` endpoint returns hourly limits only.
 
-The single monthly meter is Actions minutes, and only because the fork is private; public
+The single monthly meter is Actions minutes, and only because the copy is private; public
 repositories get them free. A run takes about 16 seconds but Actions rounds each job up to
 the minute, so a daily schedule spends roughly **30 of the 2,000 minutes** the Free plan
 includes for private repositories. No artifacts are stored.
