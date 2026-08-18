@@ -1,13 +1,28 @@
-# my-github-profile-stats
+# My GitHub Profile Stats
 
 Profile cards with nothing and nobody else in the chain. No third-party action, no
 service to sign up for, no instance to deploy, no app to authorise against your
 account. GitHub Actions builds them, your own repository stores them.
 
-<img src="examples/stats-tiles-icons.svg" width="470" alt="">
-<img src="examples/languages.svg" width="470" alt="">
+<p align="center">
+  <img src="examples/stats-tiles-icons.svg" width="470" alt="">
+  <br>
+  <img src="examples/languages.svg" width="470" alt="">
+  <br>
+  <sub><i>Placeholder figures. See <a href="#formats">all formats</a>.</i></sub>
+</p>
 
-*Placeholder figures. See [all formats](#formats).*
+## Contents
+
+- [Why it exists](#why-it-exists)
+- [How to use it](#how-to-use-it)
+- [Formats](#formats)
+- [Configuration](#configuration)
+  - [Look](#look)
+  - [Rows — on by default](#rows--on-by-default)
+  - [Rows — off by default](#rows--off-by-default)
+  - [Languages](#languages)
+- [Licence](#licence)
 
 ## Why it exists
 
