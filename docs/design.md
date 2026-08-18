@@ -81,7 +81,7 @@ tool, not part of building a card.
 This is deliberately not telemetry. Nothing is sent anywhere, no run contacts anything
 other than GitHub's API, and the line sits in plain text in the file you publish rather
 than in a request you cannot see. Deleting it is one line, and the cards work identically
-without it — the only thing it costs is being counted.
+without it — the only thing it costs is being counted, and me being a little sad about it.
 
 Its limits, since a number is worth what its method is: code search reaches public
 repositories only, `total_count` is approximate above a thousand results, and anyone who
