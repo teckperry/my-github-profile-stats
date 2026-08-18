@@ -1,0 +1,286 @@
+// Layouts are independent renderers over the same prepared data, so trying a
+// different look never touches fetching, metric selection or the theme.
+//
+// Each receives:
+//   cells  [{ label, value, icon }]  already formatted
+//   spark  { series, total } or null
+//   theme  the resolved palette
+// and returns the full SVG document.
+
+const escape = (value) =>
+  String(value).replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  );
+
+// Always framed. An unframed card carries no background of its own, so its palette
+// would have to match a page it cannot know; the frame is what makes it independent.
+export const composeCard = ({ width, height, title, desc, style, body, theme }) =>
+  svgDocument({
+    width,
+    height,
+    title,
+    desc,
+    style,
+    body: `  <rect x="0.5" y="0.5" rx="6" width="${width - 1}" height="${height - 1}" stroke="${theme.border}" fill="${theme.bg}"/>\n${body}`,
+  });
+
+const svgDocument = ({ width, height, title, desc, style, body }) => `<svg
+  width="${width}"
+  height="${height}"
+  viewBox="0 0 ${width} ${height}"
+  style="max-width: 100%; height: auto;"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="descId"
+>
+  <title id="titleId">${escape(title)}</title>
+  <desc id="descId">${escape(desc)}</desc>
+  <style>
+${style}
+  </style>
+${body}
+</svg>
+`;
+
+// One series over time. Callers vary the height, the stroke and whether it is
+// filled; the geometry is the same arithmetic in every layout.
+function sparkPath(series, width, height) {
+  const peak = Math.max(...series.map((point) => point.count), 1);
+  const step = series.length > 1 ? width / (series.length - 1) : 0;
+  const points = series.map((point, index) => [
+    index * step,
+    height - (point.count / peak) * height,
+  ]);
+  const line = points
+    .map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`)
+    .join(" ");
+  return { line, area: `${line} L${width.toFixed(1)} ${height} L0 ${height} Z`, points };
+}
+
+// A <text> y is its baseline, so centring a glyph on it leaves the glyph high by half
+// the cap height. Uppercase caps run near 0.7em, so the optical centre of the line sits
+// at baseline - 0.35em and the glyph's top goes half its own height above that.
+const iconTop = (baseline, fontSize, glyphSize) =>
+  +(baseline - 0.35 * fontSize - glyphSize / 2).toFixed(2);
+
+const years = (series) => [
+  series[0].month.slice(0, 4),
+  series[series.length - 1].month.slice(0, 4),
+];
+
+const describe = (cells, spark) =>
+  cells.map((c) => `${c.label}: ${c.value}`).join(", ") +
+  (spark ? `. Contributions: ${spark.total}` : "");
+
+// ---------------------------------------------------------------------------
+// tiles — the number leads, the label is a caption under it. No icons, no card
+// chrome: the background is left transparent so it sits on the host page.
+// ---------------------------------------------------------------------------
+function tiles(cells, spark, theme, { name, formatNumber, icons }) {
+  const PAD = 22;
+  // Twenty-seven tiles at the size six look right in would be enormous, so the
+  // figure shrinks and the grid widens as the count grows. Steps rather than a
+  // formula, so a card never lands on an awkward in-between size.
+  const STEPS = [
+    { upTo: 9, cols: 3, figure: 30, caption: 9.5, tileH: 62 },
+    { upTo: 15, cols: 3, figure: 24, caption: 9, tileH: 52 },
+    { upTo: 20, cols: 4, figure: 19, caption: 8.5, tileH: 44 },
+    { upTo: Infinity, cols: 4, figure: 16, caption: 8, tileH: 38 },
+  ];
+  const step = STEPS.find((s) => cells.length <= s.upTo);
+  const { figure, caption } = step;
+  const COLS = Math.min(step.cols, cells.length);
+  const GAP_X = 8, GAP_Y = 10;
+
+  // A parenthetical qualifier goes on its own line, smaller and italic. It keeps the
+  // caption that sets the tile width short -- "CONTRIBUTIONS (LAST YEAR)" is 25
+  // characters against 13 -- and reads as a subtitle rather than part of the name.
+  const parts = cells.map((c) => {
+    const match = /^(.*?)\s*\((.+)\)$/.exec(c.label);
+    return match ? { head: match[1], tail: match[2] } : { head: c.label, tail: null };
+  });
+  const qualifier = caption * 0.85;
+  const tailRoom = Math.round(qualifier) + 3;
+  // Tiles are uniform and sized on the widest content anywhere, so reordering the
+  // metrics cannot change the grid. Digits and small caps both run near 0.6em.
+  const TILE_W = Math.ceil(
+    Math.max(
+      ...cells.map((c, i) =>
+        Math.max(
+          c.value.length * figure * 0.62,
+          parts[i].head.length * caption * 0.68 + (icons ? Math.round(caption * 1.25) + 5 : 0),
+          (parts[i].tail ? parts[i].tail.length + 2 : 0) * qualifier * 0.62,
+        ),
+      ),
+    ) + 14,
+  );
+  const rowsOf = Math.ceil(cells.length / COLS);
+  // Only a row that actually holds a qualifier pays for the extra line, so a grid of
+  // plain labels stays as tight as it was.
+  const rowHeights = Array.from({ length: rowsOf }, (_, r) =>
+    step.tileH +
+    (parts.slice(r * COLS, (r + 1) * COLS).some((p) => p.tail) ? tailRoom : 0),
+  );
+  const rowTop = rowHeights.reduce(
+    (acc, h) => [...acc, acc[acc.length - 1] + h + GAP_Y],
+    [0],
+  );
+  const inner = COLS * TILE_W + (COLS - 1) * GAP_X;
+  const width = inner + PAD * 2;
+  const gridH = rowTop[rowsOf] - GAP_Y;
+  const sparkH = spark ? 26 + 52 + 18 : 0;
+  const height = gridH + sparkH + PAD * 2;
+
+  const body = cells
+    .map((c, i) => {
+      const x = (i % COLS) * (TILE_W + GAP_X);
+      const y = rowTop[Math.floor(i / COLS)];
+      const { head, tail } = parts[i];
+      // The figure stays the hero, so the icon rides the caption line instead of
+      // pushing the number off the tile's left edge.
+      const glyphSize = Math.round(caption * 1.25);
+      const captionX = icons ? glyphSize + 5 : 0;
+      const glyph = icons
+        ? `<svg class="icon" viewBox="0 0 16 16" width="${glyphSize}" height="${glyphSize}" x="0" y="${iconTop(figure + 17, caption, glyphSize)}"><path fill-rule="evenodd" d="${icons[c.icon]}"/></svg>\n        `
+        : "";
+      return `      <g class="stagger" style="animation-delay: ${200 + i * 90}ms" transform="translate(${x}, ${y})">
+        <text class="figure" x="0" y="${figure}">${escape(c.value)}</text>
+        ${glyph}<text class="caption" x="${captionX}" y="${figure + 17}">${escape(head.toUpperCase())}</text>${
+          tail
+            ? `\n        <text class="qualifier" x="${captionX}" y="${figure + 17 + Math.round(qualifier) + 3}">${escape(tail.toUpperCase())}</text>`
+            : ""
+        }
+      </g>`;
+    })
+    .join("\n");
+
+  const chart = spark ? (() => {
+    const { line, area } = sparkPath(spark.series, inner, 52);
+    const [from, to] = years(spark.series);
+    return `      <g class="spark" transform="translate(0, ${gridH + 26})">
+        <path class="spark-area" d="${area}"/>
+        <path class="spark-line" d="${line}"/>
+        <g transform="translate(0, 68)">
+          <text class="caption" x="0" y="0">${from}</text>
+          <text class="caption" x="${inner / 2}" y="0" text-anchor="middle">${formatNumber(spark.total)} CONTRIBUTIONS</text>
+          <text class="caption" x="${inner}" y="0" text-anchor="end">${to}</text>
+        </g>
+      </g>`;
+  })() : "";
+
+  return composeCard({
+    width, height, theme,
+    title: `${name}'s GitHub stats`,
+    desc: describe(cells, spark),
+    style: `${theme.css}
+    .figure { font: 700 ${figure}px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: ${theme.strong}; }
+    .caption { font: 600 ${caption}px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${theme.dim}; letter-spacing: .09em; }
+    .qualifier { font: 600 ${qualifier.toFixed(1)}px 'Segoe UI', Ubuntu, Sans-Serif; fill: ${theme.dim}; letter-spacing: .09em; opacity: .75; }
+    .icon { fill: ${theme.accent}; }
+    .stagger, .spark { opacity: 0; animation: fadeIn .35s ease-out forwards; }
+    .spark { animation-delay: ${200 + cells.length * 90}ms; }
+    .spark-line { stroke: ${theme.accent}; stroke-width: 1.5; stroke-linejoin: round; fill: none; }
+    .spark-area { fill: ${theme.accent}; opacity: .14; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }`,
+    body: `  <g transform="translate(${PAD}, ${PAD})">
+${body}
+${chart}
+  </g>`,
+  });
+}
+
+// ---------------------------------------------------------------------------
+// mono — monospaced, leader-dotted, no icons. Every glyph is one advance wide,
+// so the column arithmetic is exact instead of estimated.
+// ---------------------------------------------------------------------------
+function mono(cells, spark, theme, { name, formatNumber, icons }) {
+  const CH = 7.8, LH = 21, PAD = 22, COLGAP = 5;
+  const count = cells.length <= 8 ? 1 : cells.length <= 18 ? 2 : 3;
+  const per = Math.ceil(cells.length / count);
+  const columns = Array.from({ length: count }, (_, i) =>
+    cells.slice(i * per, (i + 1) * per),
+  ).filter((c) => c.length);
+
+  // Every column is the same width, measured on the widest row anywhere rather than
+  // the widest row in its own column. Reordering metrics therefore cannot change the
+  // geometry: the same set always renders identically whatever order it is in.
+  const iconChars = icons ? 3 : 0;
+  const widest = Math.max(...cells.map((c) => c.label.length + c.value.length)) + iconChars + 3;
+  // A single column stretches, so the leaders carry the eye instead of leaving the
+  // card oddly narrow next to a multi-column one.
+  const perColumn = columns.length === 1 ? Math.max(widest, 62) : widest;
+  const colChars = columns.map(() => perColumn);
+  const totalChars = perColumn * columns.length + COLGAP * (columns.length - 1);
+  const inner = +(totalChars * CH).toFixed(1);
+  const width = Math.ceil(inner + PAD * 2);
+  const gridH = columns[0].length * LH;
+  const sparkH = spark ? 18 + 34 + 22 : 0;
+  const height = Math.ceil(PAD * 2 + gridH + sparkH - 6);
+
+  let charOffset = 0;
+  const body = columns
+    .map((column, index) => {
+      const chars = colChars[index];
+      const x = (charOffset * CH).toFixed(1);
+      charOffset += chars + COLGAP;
+      return `      <g class="col" transform="translate(${x}, 0)">
+${column
+  .map((c, i) => {
+    // The value is anchored to the column's right edge, so it lands there whatever
+    // the font's real advance turns out to be. Only the leader length is estimated.
+    const fill = Math.max(2, chars - iconChars - c.label.length - c.value.length);
+    const y = i * LH + 12;
+    const glyph = icons
+      ? `<svg class="icon" viewBox="0 0 16 16" width="13" height="13" x="0" y="${iconTop(y, 13, 13)}"><path fill-rule="evenodd" d="${icons[c.icon]}"/></svg>`
+      : "";
+    return `        ${glyph}
+        <text class="line" x="${(iconChars * CH).toFixed(1)}" y="${y}"><tspan class="dim">${escape(c.label)} </tspan><tspan class="dots">${"·".repeat(fill - 1)}</tspan></text>
+        <text class="line num" x="${(chars * CH).toFixed(1)}" y="${y}" text-anchor="end">${escape(c.value)}</text>`;
+  })
+  .join("\n")}
+      </g>`;
+    })
+    .join("\n");
+
+  const chart = spark ? (() => {
+    const { line } = sparkPath(spark.series, inner, 34);
+    const [from, to] = years(spark.series);
+    return `      <g class="spark" transform="translate(0, ${gridH + 18})">
+        <path class="spark-line" d="${line}"/>
+        <text class="tick" x="0" y="50">${from}</text>
+        <text class="tick" x="${(inner / 2).toFixed(1)}" y="50" text-anchor="middle">${formatNumber(spark.total)} contributions</text>
+        <text class="tick" x="${inner}" y="50" text-anchor="end">${to}</text>
+      </g>`;
+  })() : "";
+
+  return composeCard({
+    width, height, theme,
+    title: `${name}'s GitHub stats`,
+    desc: describe(cells, spark),
+    style: `${theme.css}
+    .line, .tick { font: 400 13px ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+    .dim { fill: ${theme.text}; }
+    .dots { fill: ${theme.border}; }
+    .num { fill: ${theme.strong}; font-weight: 700; }
+    .tick { font-size: 10.5px; fill: ${theme.dim}; }
+    .icon { fill: ${theme.accent}; }
+    .spark-line { stroke: ${theme.accent}; stroke-width: 1.5; fill: none; }
+    .col, .spark { opacity: 0; animation: fadeIn .3s ease-out forwards; }
+${columns.map((_, i) => `    .col:nth-of-type(${i + 1}) { animation-delay: ${150 + i * 110}ms }`).join("\n")}
+    .spark { animation-delay: ${150 + columns[0].length * 70}ms; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }`,
+    body: `  <g transform="translate(${PAD}, ${PAD})">
+${body}
+${chart}
+  </g>`,
+  });
+}
+
+// Each layout's natural state; CARD_ICONS overrides it either way. Both read fine
+// without, so neither asks for them.
+export const ICON_DEFAULTS = { tiles: false, mono: false };
+
+export const LAYOUTS = { tiles, mono };

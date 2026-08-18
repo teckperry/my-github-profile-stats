@@ -1,0 +1,122 @@
+name: Update profile cards
+
+on:
+  schedule:
+    # 04:12 UTC. Avoids the midnight slot, which is the most contended and the most
+    # likely to be delayed or dropped by GitHub's scheduler.
+    - cron: "12 4 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Render and print the numbers without committing"
+        type: boolean
+        default: false
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    # Only so the built-in token can check this repo out. The cards are written to
+    # your profile repository with PROFILE_WRITE_TOKEN instead.
+    permissions:
+      contents: read
+
+    steps:
+      # actions/checkout is the only action used, and it is GitHub's own. Nothing is
+      # installed at run time, so no third-party code ever sees your token.
+      - name: Check out the generator
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: generator
+
+      - name: Check out the profile repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Your profile repository is the one named after you.
+          repository: ${{ github.repository_owner }}/${{ github.repository_owner }}
+          token: ${{ secrets.PROFILE_WRITE_TOKEN }}
+          path: profile-repo
+
+      - name: Render the stats card
+        env:
+          STATS_TOKEN: ${{ secrets.STATS_READ_PAT }}
+          STATS_USERNAME: ${{ github.repository_owner }}
+          CARD_OUTPUT: profile-repo/profile/stats.svg
+
+          # Only CARD_LAYOUT has to be set; the rest fall back to the layout's own
+          # defaults when left empty.
+          CARD_LAYOUT: "tiles"  # tiles | mono
+          CARD_THEME: "auto"    # dark | light | auto, which follows the viewer
+          CARD_ACCENT: ""       # hex for icons and the chart; empty uses the theme's
+          CARD_ICONS: ""        # true | false
+
+          # The contributions chart. Not a row: it replaces the whole bottom band.
+          SHOW_SPARKLINE: "true"
+
+          # Row order. Enabled metrics not named here keep their catalogue position,
+          # after the named ones.
+          METRIC_ORDER: "commits,commitsThisYear,prs,prsMergeRate,prsReviewed,issues,stars"
+
+          # Flip a flag to add or drop a row. Only the APIs the enabled metrics need
+          # are called, and a row the token cannot support is dropped, not guessed.
+          SHOW_STARS:                   "true"
+          SHOW_FORKS:                   "false"
+          SHOW_WATCHERS:                "false"
+          SHOW_FOLLOWERS:               "false"
+          SHOW_FOLLOWING:               "false"
+          SHOW_STARS_GIVEN:             "false"
+          SHOW_REPOS:                   "false"
+          SHOW_GISTS:                   "false"
+          SHOW_ORGANIZATIONS:           "false"
+          SHOW_DISK_USAGE:              "false"
+          SHOW_ACCOUNT_AGE:             "false"
+          SHOW_COMMITS:                 "true"
+          SHOW_PRS:                     "true"
+          SHOW_ISSUES:                  "true"
+          SHOW_CONTRIBUTED_TO:          "false"
+          SHOW_PRS_MERGED:              "false"
+          SHOW_PRS_MERGE_RATE:          "true"
+          SHOW_PRS_REVIEWED:            "true"
+          SHOW_PRS_COMMENTED:           "false"
+          SHOW_ISSUES_COMMENTED:        "false"
+          SHOW_DISCUSSIONS_STARTED:     "false"
+          SHOW_DISCUSSIONS_ANSWERED:    "false"
+          SHOW_COMMITS_THIS_YEAR:       "true"
+          SHOW_CONTRIBUTIONS_THIS_YEAR: "false"
+          SHOW_STREAK_CURRENT:          "false"
+          SHOW_STREAK_LONGEST:          "false"
+          SHOW_ACTIVE_DAYS:             "false"
+        run: node generator/scripts/generate-card.mjs
+
+      # A separate card: it answers a different question from a different source, and
+      # a reader should be able to take one without the other.
+      - name: Render the languages card
+        env:
+          STATS_TOKEN: ${{ secrets.STATS_READ_PAT }}
+          STATS_USERNAME: ${{ github.repository_owner }}
+          LANGUAGES_OUTPUT: profile-repo/profile/languages.svg
+          CARD_THEME: "auto"
+          CARD_ACCENT: ""
+
+          # How many of the most recent pull requests to read. "all" is the default
+          # because samples do not converge: on one account Terraform reads 30% over
+          # the 250 most recent pull requests and 54% over all 716 — a different
+          # ranking, not a rougher one. Lower it only if a run gets too slow.
+          PRS_NUMBER_TO_CALCULATE_LANGUAGES: "all"
+
+          # Names to leave out, comma separated. Empty keeps everything measured.
+          EXCLUDED_LANGUAGES: ""
+
+          # Set this and nothing is requested at all: the card draws what you declare.
+          # "Terraform 54, TypeScript 21" — weights, so percentages or line counts.
+          MANUAL_LANGUAGES: ""
+        run: node generator/scripts/generate-languages.mjs
+
+      - name: Commit the cards if they changed
+        if: inputs.dry_run != true
+        working-directory: profile-repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/stats.svg profile/languages.svg
+          git commit -m "Update profile cards" || exit 0
+          git push
