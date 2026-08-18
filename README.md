@@ -1,18 +1,54 @@
 # my-github-profile-stats
 
-Profile cards rendered by a workflow in **your** repository and committed as files.
-Opening your profile requests nothing from a third party; building the cards installs
-nothing.
+Profile cards with nothing and nobody else in the chain. No third-party action, no
+service to sign up for, no instance to deploy, no app to authorise against your
+account. GitHub Actions builds them, your own repository stores them.
 
 <img src="examples/stats-tiles-icons.svg" width="470" alt="">
 <img src="examples/languages.svg" width="470" alt="">
 
 *Placeholder figures. See [all formats](#formats).*
 
-Two things make it different from the usual: it **says what it measured**
-(`calculated analyzing all 800 pull requests`), and it **drops rows it cannot stand
-behind** instead of printing a smaller number as if it were the answer. Why that
-matters, with measurements: **[docs/why.md](docs/why.md)**.
+## Why it exists
+
+A profile card normally means handing your account to someone. Either you authorise a
+hosted instance to read your private contributions, or you deploy your own copy of one
+somewhere, or you run an action that downloads its renderer at build time and runs it
+with your token in the environment. In each case something outside your control holds,
+or briefly holds, a credential to your account.
+
+This is two repositories and nothing else:
+
+```
+  your fork · private                      you/you · public
+  ───────────────────                      ────────────────
+  STATS_READ_PAT       ─── reads ──►  your account
+  PROFILE_WRITE_TOKEN  ─── writes ─────►   profile/stats.svg
+  the workflow                             profile/languages.svg
+                                           README embeds them
+
+  holds both secrets                       holds no secrets
+```
+
+The private one is granted access to your account. The public one is granted nothing:
+it receives two SVG files and never learns how they were made. The only thing that
+crosses the boundary is a rendered image, and the tokens never leave the repository you
+own and control.
+
+At build time nothing is installed — no `package.json`, no lockfile, no dependency to
+resolve — and `actions/checkout` is the only action. At view time the card is a file in
+your repository, so opening your profile does not call anybody's server, and there is no
+hosted instance whose rate limit or uptime you inherit.
+
+To be exact rather than to oversell: the one party involved is GitHub, whose runner
+executes the workflow and whose API the figures come from. Every request a run makes is
+printed at the end of it, so that claim is checkable rather than asserted.
+
+Two consequences worth naming: because the token is yours, the card **says what it
+measured** (`calculated analyzing all 800 pull requests`), and because nothing is
+guessed on your behalf, it **drops rows it cannot stand behind** rather than printing a
+smaller number as if it were the answer. Both, with measurements:
+**[docs/why.md](docs/why.md)**.
 
 ## How to use it
 
