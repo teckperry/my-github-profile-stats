@@ -12,6 +12,10 @@ on:
 
 jobs:
   count:
+    # This belongs to the project, not to a copy of it. A copy inherits the file, and
+    # without this guard it would run daily, search for the signature and commit somebody
+    # else's adopter count into the copy's own readme, on the copy's own minutes.
+    if: github.repository == 'teckperry/my-github-profile-stats'
     runs-on: ubuntu-latest
     permissions:
       contents: write

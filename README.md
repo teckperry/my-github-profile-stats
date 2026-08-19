@@ -67,6 +67,24 @@ pull requests`. Your call — [security.md](docs/security.md#without-the-read-to
 set **Private**, create it.
 
 <details>
+<summary>Four files in the copy are mine, and you may delete them</summary>
+
+A copy inherits the pieces that count *this* project's users. They do nothing in yours —
+the counting workflow refuses to run anywhere but here — but you can remove them:
+
+```
+.github/workflows/count-adopters.yml
+scripts/adopters.mjs
+scripts/adopters-badge.mjs
+assets/adopters.svg
+```
+
+Then drop the `<img src="assets/adopters.svg" …>` from this readme's heading, which is mine
+too. Or keep the lot and ignore it; nothing breaks either way.
+
+</details>
+
+<details>
 <summary>Why it has to be private, and why not the Fork button</summary>
 
 Private for two reasons. It keeps your read token out of a repository whose Actions logs
