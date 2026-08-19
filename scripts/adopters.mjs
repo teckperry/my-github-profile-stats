@@ -12,7 +12,9 @@ if (!TOKEN) {
 }
 
 const SELF = "teckperry/my-github-profile-stats";
-const QUERY = `"my-github-profile-stats" in:file extension:svg -repo:${SELF}`;
+// Excluding examples/ as well as this repository: a copy made before the examples stopped
+// being signed still carries ten signed files that are demonstrations, not cards in use.
+const QUERY = `"my-github-profile-stats" in:file extension:svg -repo:${SELF} -path:examples`;
 
 const response = await fetch(
   `https://api.github.com/search/code?q=${encodeURIComponent(QUERY)}&per_page=100`,

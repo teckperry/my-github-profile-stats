@@ -8,7 +8,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 
 import { ICONS } from "./metrics.mjs";
 import { renderLanguagesCard } from "./language-card.mjs";
-import { LAYOUTS } from "./layouts.mjs";
+import { LAYOUTS, SIGNATURE } from "./layouts.mjs";
 import { shareOut } from "./languages.mjs";
 import { buildTheme } from "./theme.mjs";
 
@@ -71,8 +71,14 @@ const LANGUAGES = new Map([
 ]);
 
 const files = [];
+
+// Examples are demonstrations, not cards in use, so they carry no signature. Leaving it in
+// made every copy of this repository count as an adopter: the ten files here matched the
+// search, whether or not anybody had published anything.
+const EXAMPLE_NOTE = "<!-- An example card, drawn from invented figures. Not a signed card. -->";
+
 const write = async (name, svg) => {
-  await writeFile(`${OUT}/${name}.svg`, svg, "utf8");
+  await writeFile(`${OUT}/${name}.svg`, svg.replace(SIGNATURE, EXAMPLE_NOTE), "utf8");
   files.push(name);
 };
 
