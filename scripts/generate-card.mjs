@@ -1,19 +1,14 @@
 // Renders the GitHub stats card as an SVG. No dependencies: Node's global fetch
 // and template strings only, so the token is never handed to third-party code.
 //
+// Which rows, which layout, which theme: all of it comes from card.config.json, by way
+// of scripts/config.mjs. Only what a configuration file cannot hold is read from the
+// environment.
+//
 // Env:
 //   STATS_TOKEN     token used to read the stats (private repo read to count private work)
 //   STATS_USERNAME  GitHub login to render
-//   CARD_OUTPUT     path to write the SVG to
-//   SHOW_<METRIC>   "true"/"false" per metric; see scripts/metrics.mjs for the keys
-//   SHOW_ALL        "true" turns every metric on, for previewing the full set
 //   CARD_SUMMARY    optional path to also write the rendered values as JSON
-//   METRIC_ORDER    optional comma-separated metric keys fixing the row order
-//   SHOW_SPARKLINE  "false" removes the contributions chart (on by default)
-//   CARD_LAYOUT     "tiles" (default) or "mono"
-//   CARD_ICONS      "true"/"false" to force icons on or off where a layout has them
-//   CARD_THEME      "dark" (default), "light", or "auto" to follow the viewer
-//   CARD_ACCENT     hex for icons and the chart; defaults to the theme's own
 
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
@@ -23,7 +18,6 @@ import {
   METRICS,
   SOURCE_REQUIREMENTS,
   effectiveRequirements,
-  envFlag,
 } from "./metrics.mjs";
 import {
   callGitHub,
@@ -32,18 +26,25 @@ import {
   httpLog,
   readTokenScopes,
 } from "./github.mjs";
-import { ICON_DEFAULTS, LAYOUTS } from "./layouts.mjs";
+import { LAYOUTS } from "./layouts.mjs";
 import { buildTheme } from "./theme.mjs";
+import { loadConfig } from "./config.mjs";
+
+const CONFIG = await loadConfig();
 
 const TOKEN = requireEnv("STATS_TOKEN");
 const USERNAME = requireEnv("STATS_USERNAME");
-const OUTPUT = requireEnv("CARD_OUTPUT");
+const OUTPUT = CONFIG.stats.output;
 
 configure({ token: TOKEN, username: USERNAME });
 
+// Where this card's requests start in the shared log. Both cards run in one process, so
+// printing the whole log under each would credit one with the other's requests.
+const REQUESTS_BEFORE = httpLog.length;
+
 const YEAR = new Date().getUTCFullYear();
 
-const THEME = buildTheme(process.env.CARD_THEME || "dark", process.env.CARD_ACCENT);
+const THEME = buildTheme(CONFIG.theme, CONFIG.accent);
 
 const LAYOUT = {
   minWidth: 467,
@@ -68,18 +69,6 @@ function requireEnv(name) {
     throw new Error(`${name} is required`);
   }
   return value;
-}
-
-const isTruthy = (value) => /^(true|1|yes|on)$/i.test(value ?? "");
-
-// An unset flag falls back to SHOW_ALL, then to the metric's own default, so the
-// workflow only has to name what it changes and a preview can ask for everything.
-function isEnabled(metric) {
-  const raw = process.env[envFlag(metric.key)];
-  if (raw === undefined || raw === "") {
-    return isTruthy(process.env.SHOW_ALL) || Boolean(metric.enabled);
-  }
-  return isTruthy(raw);
 }
 
 // A row the token cannot support is dropped, not rendered. These fields do not
@@ -358,52 +347,27 @@ function valueOf(metric, data) {
 const render = (metric, value) => (metric.format ? metric.format(value) : formatNumber(value));
 
 function renderCard(rows, data, spark) {
-  const name = process.env.CARD_LAYOUT || "tiles";
-  const layout = LAYOUTS[name];
-  if (!layout) {
-    throw new Error(`Unknown layout: ${name}. Use ${Object.keys(LAYOUTS).join(", ")}.`);
-  }
+  // The layout name was checked when the configuration was read, so it exists.
+  const layout = LAYOUTS[CONFIG.stats.layout];
   const cells = rows.map((metric) => ({
     label: metric.label.replace("{year}", String(YEAR)),
     value: render(metric, valueOf(metric, data)),
     icon: metric.icon,
   }));
-  const wantIcons = process.env.CARD_ICONS;
-  const icons =
-    wantIcons === undefined || wantIcons === ""
-      ? ICON_DEFAULTS[name]
-      : isTruthy(wantIcons);
 
   return layout(cells, spark, THEME, {
     name: data.profile.name,
-    icons: icons ? ICONS : null,
+    icons: CONFIG.stats.icons ? ICONS : null,
     formatNumber,
   });
 }
 
-// Rows follow the catalogue unless METRIC_ORDER names them. Anything enabled but
-// unnamed keeps its catalogue position, after the ones that were named.
-function ordered(rows) {
-  const wanted = (process.env.METRIC_ORDER ?? "")
-    .split(",")
-    .map((key) => key.trim())
-    .filter(Boolean);
-  if (wanted.length === 0) {
-    return rows;
-  }
-  const unknown = wanted.filter((key) => !METRICS.some((m) => m.key === key));
-  if (unknown.length) {
-    console.log(`METRIC_ORDER names no such metric: ${unknown.join(", ")}`);
-  }
-  const rank = new Map(wanted.map((key, index) => [key, index]));
-  return [...rows].sort(
-    (a, b) => (rank.get(a.key) ?? Infinity) - (rank.get(b.key) ?? Infinity),
-  );
-}
-
-const requested = ordered(METRICS.filter(isEnabled));
+// The configured list is already ordered and already known to name real metrics, so the
+// rows are that list in that order.
+const catalogue = new Map(METRICS.map((metric) => [metric.key, metric]));
+const requested = CONFIG.stats.metrics.map((key) => catalogue.get(key));
 if (requested.length === 0) {
-  throw new Error("No metrics enabled: every SHOW_* flag is false.");
+  throw new Error(`No rows to draw: stats.metrics is empty in ${CONFIG.file}.`);
 }
 
 const token = await readTokenScopes();
@@ -421,7 +385,7 @@ if (supported.length === 0) {
 
 // The chart reads the same calendar the streak rows do, so it carries the same
 // requirement and is dropped on the same terms rather than drawn from thin data.
-const sparklineWanted = isTruthy(process.env.SHOW_SPARKLINE ?? "true");
+const sparklineWanted = CONFIG.stats.sparkline;
 const sparklineMissing =
   token.scopes === null
     ? (SOURCE_REQUIREMENTS.calendar ?? []).map((scope) => `${scope} (unverifiable token)`)
@@ -446,7 +410,10 @@ const report = THEME.accentReport;
 const describeAccent = (r) =>
   `${r.hex}${r.adjusted ? ` (raised from ${r.from} for contrast)` : ""}`;
 console.log(
-  `Theme: ${process.env.CARD_THEME || "dark"} | accent: ${
+  `Config: ${CONFIG.present ? CONFIG.file : `${CONFIG.file} (absent, defaults used)`} | layout: ${CONFIG.stats.layout}${CONFIG.stats.icons ? " + icons" : ""}`,
+);
+console.log(
+  `Theme: ${CONFIG.theme} | accent: ${
     report.hex ? describeAccent(report) : `light ${describeAccent(report.light)}, dark ${describeAccent(report.dark)}`
   }`,
 );
@@ -454,8 +421,9 @@ console.log(`Wrote ${OUTPUT}`);
 console.log(
   `Rows: ${rows.length}${withSparkline ? " + sparkline" : ""} | sources fetched: ${sources.sort().join(", ")}`,
 );
-console.log(`Requests (${httpLog.length}):`);
-for (const url of httpLog) {
+const requests = httpLog.slice(REQUESTS_BEFORE);
+console.log(`Requests (${requests.length}):`);
+for (const url of requests) {
   console.log(`  ${decodeURIComponent(url)}`);
 }
 console.log(JSON.stringify(values));
