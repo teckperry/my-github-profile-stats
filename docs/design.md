@@ -89,6 +89,16 @@ other than GitHub's API, and the line sits in plain text in the file you publish
 than in a request you cannot see. Deleting it is one line, and the cards work identically
 without it — the only thing it costs is being counted, and me being a little sad about it.
 
-Its limits, since a number is worth what its method is: code search reaches public
-repositories only, `total_count` is approximate above a thousand results, and anyone who
-removes the line disappears from the count. It is a floor, not a census.
+The example cards in `examples/` deliberately carry a different comment. They are
+demonstrations, not cards in use, and signing them made every copy of this repository count
+as an adopter: its ten example files matched the search whether or not anybody had
+published anything. The query excludes `examples/` as well, so a copy made before that
+change still does not count.
+
+Its limits, since a number is worth what its method is. Code search is scoped to what the
+searching token can read, so the figure depends on who runs it — in the workflow that is
+the built-in token, which sees public code only. `total_count` is approximate above a
+thousand results. Indexing lags publication by a while, so a card can exist for some time
+before it is counted. And anyone who removes the line disappears from the count.
+
+A floor, not a census.
