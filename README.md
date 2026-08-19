@@ -1,4 +1,4 @@
-# My GitHub Profile Stats <img src="assets/adopters.svg" alt="" height="20" align="right">
+# My GitHub Profile Stats <img src="assets/adopters.svg" alt="" height="40" align="right">
 
 <p align="center">
   <img src="examples/stats-tiles-icons.svg" width="470" alt="">

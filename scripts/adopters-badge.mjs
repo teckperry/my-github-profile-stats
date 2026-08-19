@@ -8,7 +8,11 @@
 import { buildTheme } from "./theme.mjs";
 
 const SIZE = 12.5;
-const H = 20;
+// Taller than the text needs. align="right" makes the image a float, and a float sits at
+// the top of the line box rather than at the middle of it, so a short badge rides above a
+// large heading. Padding the canvas and centring the text inside puts the words where the
+// heading's own words are, without CSS -- which a readme would have stripped anyway.
+const H = 40;
 // Estimated per glyph, as everywhere else in this project: no font metrics are available
 // without a dependency.
 const CH = 6.55;
@@ -37,7 +41,7 @@ ${theme.css}
     .t { font: 400 ${SIZE}px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--text); }
     .n { font: 700 ${SIZE}px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--accent); }
   </style>
-  <text class="t" x="0" y="14"><tspan>${head}</tspan><tspan class="n">${number}</tspan><tspan>${tail}</tspan></text>
+  <text class="t" x="0" y="${(H / 2 + SIZE * 0.35).toFixed(1)}"><tspan>${head}</tspan><tspan class="n">${number}</tspan><tspan>${tail}</tspan></text>
 </svg>
 `;
 }
