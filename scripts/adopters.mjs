@@ -32,7 +32,7 @@ const result = await response.json();
 // One profile can publish both cards, so repositories are what to count, not files.
 const repos = new Set(result.items.map((item) => item.repository.full_name));
 
-const phrase = `used by ${repos.size} public profile${repos.size === 1 ? "" : "s"}`;
+const phrase = `used by ${repos.size} public ${repos.size === 1 ? "repository" : "repositories"}`;
 
 if (process.argv.includes("--write")) {
   const { mkdir, writeFile } = await import("node:fs/promises");
@@ -44,7 +44,7 @@ if (process.argv.includes("--write")) {
 
 console.log(`Query: ${QUERY}`);
 console.log(`Files matched: ${result.total_count}${result.incomplete_results ? " (incomplete)" : ""}`);
-console.log(`Profiles: ${repos.size}${result.total_count > 100 ? "+ (first 100 files only)" : ""}`);
+console.log(`Repositories: ${repos.size}${result.total_count > 100 ? "+ (first 100 files only)" : ""}`);
 for (const name of [...repos].sort()) {
   console.log(`  ${name}`);
 }

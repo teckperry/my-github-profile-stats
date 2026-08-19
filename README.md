@@ -1,4 +1,4 @@
-# My GitHub Profile Stats
+# My GitHub Profile Stats <img src="assets/adopters.svg" alt="" height="20" align="right">
 
 <p align="center">
   <img src="examples/stats-tiles-icons.svg" width="470" alt="">
@@ -6,10 +6,6 @@
   <img src="examples/languages.svg" width="470" alt="">
   <br>
   <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
-</p>
-
-<p align="center">
-  <img src="assets/adopters.svg" alt="" height="30">
 </p>
 
 ## Nobody else in the chain
