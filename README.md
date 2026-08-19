@@ -8,6 +8,8 @@
   <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
 </p>
 
+**[Nobody else in the chain](#nobody-else-in-the-chain) · [Setup](#setup) · [Formats](#formats) · [Reference](#reference) · [Licence](#licence)**
+
 ## Nobody else in the chain
 
 A profile card normally means handing your account to somebody: authorising a hosted
@@ -49,51 +51,69 @@ pull requests`. Your call — [security.md](docs/security.md#without-the-read-to
 
 ## Setup
 
-**1 · Make your own copy.**
+### 1 · Copy this repository
 
-**[Create your copy from this template](https://github.com/teckperry/my-github-profile-stats/generate)** —
-or the **Use this template** button at the top of this page. Give it a name, set
-**Private**, and create it.
+**[Create your copy from the template →](https://github.com/teckperry/my-github-profile-stats/generate)** · name it,
+set **Private**, create it.
 
-Private matters twice over. It keeps your token out of a repository whose Actions logs
-anyone can read, and it keeps the schedule running: GitHub disables scheduled workflows in
-a **public** repository after 60 days without activity, and this one never commits to
+<details>
+<summary>Why it has to be private, and why not the Fork button</summary>
+
+Private for two reasons. It keeps your read token out of a repository whose Actions logs
+anyone can read, and it keeps the schedule alive: GitHub disables scheduled workflows in a
+**public** repository after 60 days without activity, and this repository never commits to
 itself — it writes to your profile repository instead.
 
-> Not the **Fork** button. A fork has Actions switched off until you enable them and its
-> scheduled workflows disabled separately, so the card never builds until you find both
-> switches. A template copy is a normal repository with neither problem. The one thing a
-> fork gives you is `Sync fork` for updates; a copy takes them by hand.
+Not the **Fork** button. A fork has Actions switched off until you enable them and its
+scheduled workflows disabled separately, so the card never builds until you find both
+switches. You also cannot fork a repository into the account that already owns it. The one
+thing a fork would give you is `Sync fork` for updates; a copy takes them by hand.
 
-**2 · Create the read token** — optional, see above.
-[New classic token](https://github.com/settings/tokens/new) → check **`repo`** and
-**`read:user`** → Generate → copy.
+</details>
 
-**3 · Create the write token.**
-[New fine-grained token](https://github.com/settings/personal-access-tokens/new) →
-Repository access: **Only select repositories** → the one named after you → Permissions →
-Repository → **Contents: Read and write** → Generate → copy.
+### 2 · Make two tokens
 
-**4 · Store them in your copy.**
-Settings → Secrets and variables → Actions → New repository secret:
+|  | Type | What to enable | Store it as |
+| --- | --- | --- | --- |
+| **Read** · optional | [classic](https://github.com/settings/tokens/new) | `repo` and `read:user` | `STATS_READ_PAT` |
+| **Write** · required | [fine-grained](https://github.com/settings/personal-access-tokens/new) | **Only select repositories** → the one named after you → **Contents: Read and write** | `PROFILE_WRITE_TOKEN` |
 
-| Name | Value |
-| --- | --- |
-| `STATS_READ_PAT` | the token from step 2, if you made one |
-| `PROFILE_WRITE_TOKEN` | the token from step 3 |
+Both go in your copy under **Settings → Secrets and variables → Actions → New repository
+secret**, named exactly as above.
 
-**5 · Run it.** Actions → *Update profile cards* → Run workflow. Tick **dry_run** to print
-the numbers without committing. After that it runs daily.
+<details>
+<summary>Why the read token is optional, and what you lose without it</summary>
 
-**6 · Embed the cards** in your profile README:
+Without it the workflow runs on the token Actions provides by itself, which sees only
+public activity. Thirteen rows are drawn and fourteen are **dropped rather than guessed**,
+and the languages card says `public pull requests`. Measured on one account, with and
+without: 949 commits against 106, and 716 pull requests against 44.
+
+The write token is not optional either way: `GITHUB_TOKEN` cannot write to another
+repository, which is how the cards reach your profile. It is scoped to that one repository
+and carries nothing beyond it.
+
+The read token is the one that costs something. A classic token with `repo` has no
+read-only variant, so it also grants write access to every repository you can reach —
+which is why step 1 says private. See [security.md](docs/security.md).
+
+</details>
+
+### 3 · Run it
+
+**Actions → Update profile cards → Run workflow.** Tick `dry_run` to print the numbers
+without committing anything. After the first run it goes daily.
+
+### 4 · Show the cards
 
 ```md
 ![Stats](./profile/stats.svg)
 ![Languages](./profile/languages.svg)
 ```
 
-**7 · Choose what to show** in the workflow's `env:` block —
-[configuration.md](docs/configuration.md).
+Relative paths, so GitHub serves them from your own repository.
+
+Then choose what appears on them — [configuration.md](docs/configuration.md).
 
 ## Formats
 
