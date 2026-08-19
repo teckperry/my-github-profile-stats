@@ -87,10 +87,14 @@ too. Or keep the lot and ignore it; nothing breaks either way.
 <details>
 <summary>Why it has to be private, and why not the Fork button</summary>
 
-Private for two reasons. It keeps your read token out of a repository whose Actions logs
-anyone can read, and it keeps the schedule alive: GitHub disables scheduled workflows in a
-**public** repository after 60 days without activity, and this repository never commits to
-itself — it writes to your profile repository instead.
+Private for two reasons, and the bigger one is not secrecy. GitHub disables scheduled
+workflows in a **public** repository after 60 days without activity, and this repository
+never commits to itself — it writes to your profile repository — so a public copy would
+quietly stop building. Private keeps the schedule alive.
+
+It also keeps your run logs to yourself. They carry the figures and the *names* of your
+token's scopes; the token itself never appears in one, and Actions masks secrets anyway.
+No reason to publish either.
 
 Not the **Fork** button. A fork has Actions switched off until you enable them and its
 scheduled workflows disabled separately, so the card never builds until you find both
@@ -141,22 +145,28 @@ without committing anything. After the first run it goes daily.
 
 Relative paths, so GitHub serves them from your own repository.
 
-Then choose what appears on them — [configuration.md](docs/configuration.md).
+Then choose what appears on them: **`card.config.json`**, in the root of your copy. One
+file, every option, and your editor will explain each one as you type it. Commit, and the
+next run draws it — [configuration.md](docs/configuration.md).
+
+```bash
+node scripts/config.mjs   # says what your file resolves to, and what is wrong with it
+```
 
 ## Formats
 
 | | |
 | --- | --- |
-| `CARD_LAYOUT=tiles` | <img src="examples/stats-tiles.svg" width="320" alt=""> |
-| `tiles` + `CARD_ICONS=true` | <img src="examples/stats-tiles-icons.svg" width="320" alt=""> |
-| `CARD_LAYOUT=mono` | <img src="examples/stats-mono.svg" width="320" alt=""> |
-| `mono` + `CARD_ICONS=true` | <img src="examples/stats-mono-icons.svg" width="320" alt=""> |
-| `CARD_THEME=light` | <img src="examples/stats-tiles-light.svg" width="320" alt=""> |
-| `CARD_THEME=dark` | <img src="examples/stats-mono-dark.svg" width="320" alt=""> |
+| `"layout": "tiles"` | <img src="examples/stats-tiles.svg" width="320" alt=""> |
+| `tiles` + `"icons": true` | <img src="examples/stats-tiles-icons.svg" width="320" alt=""> |
+| `"layout": "mono"` | <img src="examples/stats-mono.svg" width="320" alt=""> |
+| `mono` + `"icons": true` | <img src="examples/stats-mono-icons.svg" width="320" alt=""> |
+| `"theme": "light"` | <img src="examples/stats-tiles-light.svg" width="320" alt=""> |
+| `"theme": "dark"` | <img src="examples/stats-mono-dark.svg" width="320" alt=""> |
 | every row on, `tiles` | <img src="examples/stats-tiles-dense.svg" width="320" alt=""> |
 | every row on, `mono` | <img src="examples/stats-mono-dense.svg" width="320" alt=""> |
 | languages | <img src="examples/languages.svg" width="320" alt=""> |
-| languages, `MANUAL_LANGUAGES` | <img src="examples/languages-manual.svg" width="320" alt=""> |
+| languages, `"manual"` | <img src="examples/languages-manual.svg" width="320" alt=""> |
 
 `node scripts/examples.mjs` regenerates them from placeholder data — no token needed.
 

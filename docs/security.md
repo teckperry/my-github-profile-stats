@@ -48,9 +48,10 @@ requests against 44 — almost all of that work being private.
 
 Two reasons, and only the first is about secrets.
 
-A private repository keeps the read token out of a place whose Actions logs are world
-readable. And GitHub disables scheduled workflows in a **public** repository after 60 days
-without repository activity — this one never commits to itself, since it writes to your
+A private repository keeps your run logs to yourself. To be exact about what that is
+worth: a log carries the figures and the *names* of the token's scopes, never the token —
+audited below — so this is modest. The schedule is the real reason. GitHub disables
+scheduled workflows in a **public** repository after 60 days without repository activity — this one never commits to itself, since it writes to your
 profile repository, so a public copy would stop running silently after two months. A
 private copy is not subject to that rule.
 
@@ -59,8 +60,15 @@ you pay for both: about 30 of the 2,000 the Free plan includes. See [cost.md](co
 
 ## The trust surface
 
-Three imports, two of them Node built-ins. No `package.json`, no lockfile, no install
-step. `actions/checkout`, pinned to a commit SHA, is the only action.
+Every import is either a Node built-in or a file in this repository — there is no third
+party to audit, and you can check that in one line:
+
+```bash
+grep -h '^import\|from "' scripts/*.mjs | grep -o 'from "[^"]*"' | sort -u
+```
+
+No `package.json`, no lockfile, no install step. `actions/checkout`, pinned to a commit
+SHA, is the only action.
 
 That is not incidental. Nothing is fetched at run time, so there is nothing whose
 version could change under you between one run and the next.
@@ -78,12 +86,17 @@ Every request is recorded and listed at the end, so the log states it rather tha
 code implying it:
 
 ```
-Requests (6):
+Requests (7):
+  user
   graphql
   graphql
   search/commits?q=author:<login>&per_page=1
   ...
 ```
+
+`user` is the token check: the scopes come back in a response header, which is how a row
+the token cannot support gets dropped instead of guessed. Both cards are drawn by one
+process, and each lists only its own requests.
 
 URLs are safe to print because the token travels in the authorization header and is
 never placed in one.
