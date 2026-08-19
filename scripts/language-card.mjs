@@ -21,7 +21,7 @@ const escape = (value) =>
 
 const pct = (share) => `${share.toFixed(1)}%`;
 
-// Language colours are GitHub's, which is what makes the bar recognisable, but they
+// Language colors are GitHub's, which is what makes the bar recognisable, but they
 // were never chosen against a dark surface: JSON is #292929, which on #0d1117 reads as
 // a hole in the bar rather than a segment. Each one goes through the same contrast
 // correction as the accent, per surface, and is emitted as a variable so one card can
@@ -49,7 +49,7 @@ export function renderLanguagesCard(segments, note, theme, themeName, title) {
   const noteTop = rows * LAYOUT.legendRow + LAYOUT.gapBeforeNote;
   const height = LAYOUT.pad * 2 + noteTop + (note ? 4 : -LAYOUT.gapBeforeNote);
 
-  // Every segment is named and given its share, so identity never rests on colour
+  // Every segment is named and given its share, so identity never rests on color
   // alone -- which is also what makes borrowing GitHub's palette defensible.
   const legend = segments
     .map((s, i) => {

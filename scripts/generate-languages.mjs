@@ -75,7 +75,7 @@ if (manual) {
     console.log(`  ${result.truncated} pull requests had over 100 files and were read in part`);
   }
   if (result.unmapped) {
-    console.log(`  ${result.unmapped} changed lines had no recognised language and count as Other`);
+    console.log(`  ${result.unmapped} changed lines had no recognized language and count as Other`);
   }
 }
 

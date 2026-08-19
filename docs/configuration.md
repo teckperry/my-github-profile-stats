@@ -20,7 +20,7 @@ missing — see [security.md](security.md).
 | `METRIC_ORDER` | comma-separated metric keys, in order | built-in |
 
 `SHOW_SPARKLINE` reads the contribution calendar, so without the read token the chart is
-left out rather than drawn from public days alone. Why colours behave the way they do is
+left out rather than drawn from public days alone. Why colors behave the way they do is
 in [design.md](design.md).
 
 ## Rows — on by default

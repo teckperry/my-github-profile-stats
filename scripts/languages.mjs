@@ -5,7 +5,7 @@
 // reported HTML 73% (a static blog) and later Jupyter Notebook 49% (a data repo
 // touched once), against Terraform 54% for the files actually edited.
 
-// Extension to language. Colours are GitHub's own, taken from the API where a repo
+// Extension to language. Colors are GitHub's own, taken from the API where a repo
 // here uses the language and from Linguist's published values otherwise.
 const LANGUAGES = {
   Terraform: { color: "#844FBA", ext: [".tf", ".tfvars", ".tfbackend", ".hcl"] },
