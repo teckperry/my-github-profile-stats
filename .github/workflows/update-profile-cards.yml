@@ -1,5 +1,13 @@
 name: Update profile cards
 
+# What the cards show is not configured here -- it lives in card.config.json.
+#
+# The reason is mechanical. A token without the `workflow` scope cannot write to
+# .github/workflows/**: GitHub answers 404, and no entry in a `permissions:` block grants
+# it. So anything kept in this file could never be updated for you, while anything kept
+# in card.config.json can. This file holds only what a configuration file cannot: the
+# secrets, and where the checkouts landed.
+
 on:
   schedule:
     # 04:12 UTC. Avoids the midnight slot, which is the most contended and the most
@@ -36,86 +44,17 @@ jobs:
           token: ${{ secrets.PROFILE_WRITE_TOKEN }}
           path: profile-repo
 
-      - name: Render the stats card
+      - name: Render the cards
         env:
           # Falls back to the token Actions provides if you never made one. That one
           # sees only public activity, so rows needing private access are dropped
           # rather than filled with a public-only figure.
           STATS_TOKEN: ${{ secrets.STATS_READ_PAT || secrets.GITHUB_TOKEN }}
           STATS_USERNAME: ${{ github.repository_owner }}
-          CARD_OUTPUT: profile-repo/profile/stats.svg
-
-          # Only CARD_LAYOUT has to be set; the rest fall back to the layout's own
-          # defaults when left empty.
-          CARD_LAYOUT: "tiles"  # tiles | mono
-          CARD_THEME: "auto"    # dark | light | auto, which follows the viewer
-          CARD_ACCENT: ""       # hex for icons and the chart; empty uses the theme's
-          CARD_ICONS: ""        # true | false
-
-          # The contributions chart. Not a row: it replaces the whole bottom band.
-          SHOW_SPARKLINE: "true"
-
-          # Row order. Enabled metrics not named here keep their catalogue position,
-          # after the named ones.
-          METRIC_ORDER: "commits,commitsThisYear,prs,prsMergeRate,prsReviewed,issues,stars"
-
-          # Flip a flag to add or drop a row. Only the APIs the enabled metrics need
-          # are called, and a row the token cannot support is dropped, not guessed.
-          SHOW_STARS:                   "true"
-          SHOW_FORKS:                   "false"
-          SHOW_WATCHERS:                "false"
-          SHOW_FOLLOWERS:               "false"
-          SHOW_FOLLOWING:               "false"
-          SHOW_STARS_GIVEN:             "false"
-          SHOW_REPOS:                   "false"
-          SHOW_GISTS:                   "false"
-          SHOW_ORGANIZATIONS:           "false"
-          SHOW_DISK_USAGE:              "false"
-          SHOW_ACCOUNT_AGE:             "false"
-          SHOW_COMMITS:                 "true"
-          SHOW_PRS:                     "true"
-          SHOW_ISSUES:                  "true"
-          SHOW_CONTRIBUTED_TO:          "false"
-          SHOW_PRS_MERGED:              "false"
-          SHOW_PRS_MERGE_RATE:          "true"
-          SHOW_PRS_REVIEWED:            "true"
-          SHOW_PRS_COMMENTED:           "false"
-          SHOW_ISSUES_COMMENTED:        "false"
-          SHOW_DISCUSSIONS_STARTED:     "false"
-          SHOW_DISCUSSIONS_ANSWERED:    "false"
-          SHOW_COMMITS_THIS_YEAR:       "true"
-          SHOW_CONTRIBUTIONS_THIS_YEAR: "false"
-          SHOW_STREAK_CURRENT:          "false"
-          SHOW_STREAK_LONGEST:          "false"
-          SHOW_ACTIVE_DAYS:             "false"
-        run: node generator/scripts/generate-card.mjs
-
-      # A separate card: it answers a different question from a different source, and
-      # a reader should be able to take one without the other.
-      - name: Render the languages card
-        env:
-          # Falls back to the token Actions provides if you never made one. That one
-          # sees only public activity, so rows needing private access are dropped
-          # rather than filled with a public-only figure.
-          STATS_TOKEN: ${{ secrets.STATS_READ_PAT || secrets.GITHUB_TOKEN }}
-          STATS_USERNAME: ${{ github.repository_owner }}
-          LANGUAGES_OUTPUT: profile-repo/profile/languages.svg
-          CARD_THEME: "auto"
-          CARD_ACCENT: ""
-
-          # How many of the most recent pull requests to read. "all" is the default
-          # because samples do not converge: on one account Terraform reads 30% over
-          # the 250 most recent pull requests and 54% over all 716 — a different
-          # ranking, not a rougher one. Lower it only if a run gets too slow.
-          PRS_NUMBER_TO_CALCULATE_LANGUAGES: "all"
-
-          # Names to leave out, comma separated. Empty keeps everything measured.
-          EXCLUDED_LANGUAGES: ""
-
-          # Set this and nothing is requested at all: the card draws what you declare.
-          # "Terraform 54, TypeScript 21" — weights, so percentages or line counts.
-          MANUAL_LANGUAGES: ""
-        run: node generator/scripts/generate-languages.mjs
+          # Where the checkout above put your profile repository. The output paths in
+          # card.config.json resolve inside it.
+          PROFILE_DIR: profile-repo
+        run: node generator/scripts/render.mjs
 
       - name: Commit the cards if they changed
         if: inputs.dry_run != true
@@ -123,6 +62,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add profile/stats.svg profile/languages.svg
+          # Whatever the run wrote, wherever card.config.json pointed it. Naming the two
+          # files here would mean a workflow edit to move one, which is the edit this
+          # setup exists to avoid.
+          git add -A
           git commit -m "Update profile cards" || exit 0
           git push

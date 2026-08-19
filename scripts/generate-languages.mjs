@@ -2,22 +2,24 @@
 // different question from a different source, and because a reader should be able to
 // take one without the other.
 //
+// The measurement and how it is drawn come from card.config.json, by way of
+// scripts/config.mjs. Only what a configuration file cannot hold is read from the
+// environment.
+//
 // Env:
-//   STATS_TOKEN                        token used to read the pull requests
-//   STATS_USERNAME                     GitHub login to render
-//   LANGUAGES_OUTPUT                   path to write the SVG to
-//   CARD_THEME / CARD_ACCENT           as the stats card
-//   PRS_NUMBER_TO_CALCULATE_LANGUAGES  "all" (default) or how many recent PRs to read
-//   EXCLUDED_LANGUAGES                 comma-separated names to leave out
-//   MANUAL_LANGUAGES                   "Terraform 54, TypeScript 21" -- declared, no requests
+//   STATS_TOKEN     token used to read the pull requests
+//   STATS_USERNAME  GitHub login to render
 
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
 import { configure, graphql, httpLog, readTokenScopes } from "./github.mjs";
-import { measureLanguages, parseManual, shareOut } from "./languages.mjs";
+import { measureLanguages, shareOut } from "./languages.mjs";
 import { renderLanguagesCard } from "./language-card.mjs";
 import { buildTheme } from "./theme.mjs";
+import { loadConfig } from "./config.mjs";
+
+const CONFIG = await loadConfig();
 
 const requireEnv = (name) => {
   const value = process.env[name];
@@ -29,33 +31,26 @@ const requireEnv = (name) => {
 
 const TOKEN = requireEnv("STATS_TOKEN");
 const USERNAME = requireEnv("STATS_USERNAME");
-const OUTPUT = requireEnv("LANGUAGES_OUTPUT");
+const OUTPUT = CONFIG.languages.output;
 
 configure({ token: TOKEN, username: USERNAME });
 
-const THEME_NAME = process.env.CARD_THEME || "dark";
-const THEME = buildTheme(THEME_NAME, process.env.CARD_ACCENT);
+// Where this card's requests start in the shared log -- see the note in generate-card.mjs.
+const REQUESTS_BEFORE = httpLog.length;
+
+const THEME_NAME = CONFIG.theme;
+const THEME = buildTheme(THEME_NAME, CONFIG.accent);
 
 const pct = (share) => `${share.toFixed(1)}%`;
 
-const exclude = (process.env.EXCLUDED_LANGUAGES ?? "")
-  .split(",")
-  .map((name) => name.trim())
-  .filter(Boolean);
-
-const manual = process.env.MANUAL_LANGUAGES?.trim();
+const { exclude, manual, pullRequestsToRead: limit, top } = CONFIG.languages;
 let lines;
 let note = null;
 
 if (manual) {
-  lines = parseManual(manual);
+  lines = manual;
   console.log(`Languages: declared by hand, ${lines.size} entries, no requests made`);
 } else {
-  const raw = process.env.PRS_NUMBER_TO_CALCULATE_LANGUAGES?.trim() || "all";
-  const limit = raw.toLowerCase() === "all" ? "all" : Number(raw);
-  if (limit !== "all" && (!Number.isInteger(limit) || limit < 1)) {
-    throw new Error(`PRS_NUMBER_TO_CALCULATE_LANGUAGES: expected "all" or a whole number, got "${raw}"`);
-  }
   // Whether private pull requests are in reach changes what the figures describe, so
   // the note says which it counted rather than leaving the reader to assume.
   const token = await readTokenScopes();
@@ -79,9 +74,9 @@ if (manual) {
   }
 }
 
-const segments = shareOut(lines, { exclude });
+const segments = shareOut(lines, { exclude, top });
 if (segments.length === 0) {
-  throw new Error("No languages left to draw. Check EXCLUDED_LANGUAGES.");
+  throw new Error(`No languages left to draw. Check languages.exclude in ${CONFIG.file}.`);
 }
 
 await mkdir(dirname(OUTPUT), { recursive: true });
@@ -91,9 +86,13 @@ await writeFile(
   "utf8",
 );
 
+console.log(
+  `Config: ${CONFIG.present ? CONFIG.file : `${CONFIG.file} (absent, defaults used)`} | theme: ${THEME_NAME}`,
+);
 console.log(`Wrote ${OUTPUT}`);
-console.log(`Requests (${httpLog.length}):`);
-for (const url of httpLog) {
+const requests = httpLog.slice(REQUESTS_BEFORE);
+console.log(`Requests (${requests.length}):`);
+for (const url of requests) {
   console.log(`  ${decodeURIComponent(url)}`);
 }
 console.log(JSON.stringify(Object.fromEntries(segments.map((s) => [s.name, pct(s.share)]))));

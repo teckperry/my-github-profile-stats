@@ -42,7 +42,7 @@ Reading a slice of the history gives a different answer, not a rougher one:
 | 250 | **30%** | 23% | 21% |
 | all 716 | **54%** | 16% | 12% |
 
-At 250 the ranking is wrong, not blurry. So `PRS_NUMBER_TO_CALCULATE_LANGUAGES` defaults
+At 250 the ranking is wrong, not blurry. So `languages.pullRequestsToRead` defaults
 to `all`, and the card states its basis either way: `calculated analyzing all 716 pull
 requests`, or `the latest 100 pull requests` when limited.
 
@@ -50,5 +50,5 @@ A limit larger than the history is not an error: it reads what exists and says s
 
 ## Declaring them instead
 
-`MANUAL_LANGUAGES` takes `Terraform 54, TypeScript 21` and makes **no request of any
-kind**. The numbers are weights, so percentages and raw line counts both work.
+`languages.manual` takes `{"Terraform": 54, "TypeScript": 21}` and makes **no request of
+any kind**. The numbers are weights, so percentages and raw line counts both work.

@@ -63,7 +63,17 @@ export async function callGitHub(url, init) {
 // What the token can actually reach decides several of these numbers, and a token
 // that is too narrow under-reports silently rather than failing. Scopes are not
 // secret, so read them and hold every metric to what it needs.
-export async function readTokenScopes() {
+//
+// Held after the first read: both cards ask, and the answer cannot change inside a run.
+let tokenRead;
+
+export function readTokenScopes() {
+  tokenRead ??= readToken();
+  return tokenRead;
+}
+
+async function readToken() {
+  httpLog.push("user");
   const response = await fetch("https://api.github.com/user", {
     headers: {
       accept: "application/vnd.github+json",

@@ -1,0 +1,32 @@
+{
+  "$schema": "./docs/card.config.schema.json",
+
+  "theme": "auto",
+  "accent": null,
+
+  "stats": {
+    "enabled": true,
+    "output": "profile/stats.svg",
+    "layout": "tiles",
+    "icons": false,
+    "sparkline": true,
+    "metrics": [
+      "commits",
+      "commitsThisYear",
+      "prs",
+      "prsMergeRate",
+      "prsReviewed",
+      "issues",
+      "stars"
+    ]
+  },
+
+  "languages": {
+    "enabled": true,
+    "output": "profile/languages.svg",
+    "pullRequestsToRead": "all",
+    "exclude": [],
+    "manual": {},
+    "top": 6
+  }
+}

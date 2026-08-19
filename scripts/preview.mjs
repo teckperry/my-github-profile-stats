@@ -1,13 +1,13 @@
 // Renders the card with every metric enabled and writes a page to look at it,
-// alongside a table of the flag to set for each row. Local tool: pick the rows you
-// want here, then set those flags in the workflow.
+// alongside the key that names each row. Local tool: pick the rows you want here, then
+// list those keys under stats.metrics in card.config.json.
 //
 //   STATS_TOKEN=$(gh auth token) STATS_USERNAME=<login> node scripts/preview.mjs
 //   open preview/index.html
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
-import { METRICS, effectiveRequirements, envFlag } from "./metrics.mjs";
+import { METRICS, effectiveRequirements } from "./metrics.mjs";
 
 const OUT_DIR = process.env.PREVIEW_DIR ?? "preview";
 await mkdir(OUT_DIR, { recursive: true });
@@ -24,7 +24,7 @@ const rows = METRICS.filter((m) => m.key in values)
   .map((m) => {
     const needs = effectiveRequirements(m);
     return `<tr>
-      <td><code>${envFlag(m.key)}</code></td>
+      <td><code>${m.key}</code></td>
       <td>${m.label}</td>
       <td class="num">${values[m.key]}</td>
       <td class="dim">${needs.length ? needs.map((s) => `<code>${s}</code>`).join(" + ") : "—"}</td>
@@ -33,8 +33,15 @@ const rows = METRICS.filter((m) => m.key in values)
   .join("\n");
 
 const dropped = METRICS.filter((m) => !(m.key in values))
-  .map((m) => `<li><code>${envFlag(m.key)}</code> — ${m.label}</li>`)
+  .map((m) => `<li><code>${m.key}</code> — ${m.label}</li>`)
   .join("\n");
+
+// Ready to paste, in catalogue order: the keys of every row that actually drew.
+const asConfig = JSON.stringify(
+  METRICS.filter((m) => m.key in values).map((m) => m.key),
+  null,
+  2,
+).replace(/\n/g, "\n  ");
 
 await writeFile(
   `${OUT_DIR}/index.html`,
@@ -56,21 +63,26 @@ await writeFile(
   .dim { color: #8b949e; }
   h2 { font-size: 14px; color: #8b949e; margin: 32px 0 8px; font-weight: 600; }
   ul { color: #8b949e; font-size: 14px; padding-left: 20px; }
+  pre { background: #161b22; border: 1px solid #21262d; border-radius: 6px; padding: 14px 16px; overflow-x: auto; }
+  pre code { background: none; padding: 0; line-height: 1.5; }
 </style>
 <main>
   <h1>Stats card preview</h1>
-  <p class="lede">Every metric enabled. Pick the rows you want, then set those flags in the workflow.</p>
+  <p class="lede">Every metric enabled. Pick the rows you want, then list their keys under <code>stats.metrics</code> in <code>card.config.json</code> — the order of the list is the order on the card.</p>
   <div class="card">${svg}</div>
   <table>
-    <thead><tr><th>Flag</th><th>Row</th><th>Value</th><th>Needs</th></tr></thead>
+    <thead><tr><th>Key</th><th>Row</th><th>Value</th><th>Needs</th></tr></thead>
     <tbody>
 ${rows}
     </tbody>
   </table>
   ${dropped ? `<h2>Dropped — the token cannot support these</h2><ul>${dropped}</ul>` : ""}
+  <h2>All of the above, as configuration</h2>
+  <pre><code>"metrics": ${asConfig}</code></pre>
 </main>
 `,
   "utf8",
 );
 
 console.log(`Preview: ${OUT_DIR}/index.html`);
+console.log("Pick the rows you want, then list their keys under stats.metrics in card.config.json.");

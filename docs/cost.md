@@ -22,7 +22,8 @@ whether it asks for one repository or a hundred.
 | Stats card, default rows | 2 |
 | Stats card, every row on | 6 |
 | Languages card | 1 per 100 pull requests |
-| Languages card, `MANUAL_LANGUAGES` | 0 |
+| Languages card, `languages.manual` | 0 |
+| The token check, once per run | 1 |
 
 Worst realistic case — twenty thousand pull requests and every row enabled — is roughly
 200 points against 5,000 an hour, and 6 search requests against 30 a minute.
@@ -38,7 +39,7 @@ quota, is what makes a very long history slow:
 | 5,000 | 50 | ~3.7 min | 4 |
 | 20,000 | 200 | ~15 min | 15 |
 
-Lower `PRS_NUMBER_TO_CALCULATE_LANGUAGES` if a run stops being worth its minutes, knowing
+Lower `languages.pullRequestsToRead` if a run stops being worth its minutes, knowing
 what a sample costs in accuracy.
 
 ## When a limit is hit
