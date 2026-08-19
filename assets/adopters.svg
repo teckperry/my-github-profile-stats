@@ -1,12 +1,12 @@
 <svg
-  width="145"
-  height="30"
-  viewBox="0 0 145 30"
+  width="213"
+  height="20"
+  viewBox="0 0 213 20"
   style="max-width: 100%; height: auto;"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
-  aria-label="Used by 0 public profiles"
+  aria-label="Used by 0 public repositories"
 >
   <style>
     :root {
@@ -27,11 +27,8 @@
       --accent: #2f81f7;
       }
     }
-    .n { font: 700 13px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--accent); }
-    .l { font: 600 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: var(--text); letter-spacing: .05em; }
+    .t { font: 400 12.5px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--text); }
+    .n { font: 700 12.5px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif; fill: var(--accent); }
   </style>
-  <rect x="0.5" y="0.5" rx="14.5" width="144" height="29"
-        fill="var(--bg)" stroke="var(--border)"/>
-  <text class="n" x="13" y="19.5">0</text>
-  <text class="l" x="27.6" y="19">public profiles</text>
+  <text class="t" x="0" y="14"><tspan>used by </tspan><tspan class="n">0</tspan><tspan> public repositories :(</tspan></text>
 </svg>
