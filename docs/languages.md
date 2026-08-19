@@ -19,7 +19,7 @@ The first two are not imprecise, they answer a different question. Reweighting b
 against repository counts changes the arithmetic without changing what is counted.
 
 There is a further trap in the second row: `ownerAffiliations` does not return the
-organisation repositories you actually work in when access arrives through a team. On that
+organization repositories you actually work in when access arrives through a team. On that
 account it missed the repository holding 2 MB of Terraform entirely.
 
 ## The blind spot
@@ -28,7 +28,7 @@ Work pushed outside a pull request is invisible: 949 commits against 716 pull re
 that account, so coverage was high but not total.
 
 Pull requests with more than a hundred changed files are read in part, and a run says how
-many. Extensions with no recognised language count as `Other` rather than vanishing, and a
+many. Extensions with no recognized language count as `Other` rather than vanishing, and a
 run says how many lines that was.
 
 ## Samples do not converge

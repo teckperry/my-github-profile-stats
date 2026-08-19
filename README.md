@@ -8,11 +8,21 @@
   <sub><i>Placeholder figures — see <a href="#formats">all formats</a></i></sub>
 </p>
 
-**[Nobody else in the chain](#nobody-else-in-the-chain) · [Setup](#setup) · [Formats](#formats) · [Reference](#reference) · [Licence](#licence)**
+<p align="center">
+  <a href="#nobody-else-in-the-chain"><b>Nobody else in the chain</b></a>
+  ·
+  <a href="#setup"><b>Setup</b></a>
+  ·
+  <a href="#formats"><b>Formats</b></a>
+  ·
+  <a href="#reference"><b>Reference</b></a>
+  ·
+  <a href="#license"><b>License</b></a>
+</p>
 
 ## Nobody else in the chain
 
-A profile card normally means handing your account to somebody: authorising a hosted
+A profile card normally means handing your account to somebody: authorizing a hosted
 instance to read your private contributions, deploying your own copy of one, or running an
 action that downloads its renderer at build time and runs it with your token in the
 environment.
@@ -141,8 +151,8 @@ Then choose what appears on them — [configuration.md](docs/configuration.md).
 | [metrics.md](docs/metrics.md) | what each row measures, and the rows that were removed |
 | [languages.md](docs/languages.md) | why changed files rather than repository languages |
 | [cost.md](docs/cost.md) | rate limits, Actions minutes, and where the real limit is |
-| [design.md](docs/design.md) | colour, contrast, layout and icon decisions |
+| [design.md](docs/design.md) | color, contrast, layout and icon decisions |
 
-## Licence
+## License
 
 MIT — see [`LICENSE`](LICENSE). Attributions in [`NOTICE`](NOTICE).

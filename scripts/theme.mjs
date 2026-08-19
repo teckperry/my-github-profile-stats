@@ -32,7 +32,7 @@ export function parseHex(input) {
   const hex = String(input).trim().replace(/^#/, "");
   const full = hex.length === 3 ? [...hex].map((c) => c + c).join("") : hex;
   if (!/^[0-9a-fA-F]{6}$/.test(full)) {
-    throw new Error(`Not a colour: ${input}. Use a hex like #2f81f7 or 2f81f7.`);
+    throw new Error(`Not a color: ${input}. Use a hex like #2f81f7 or 2f81f7.`);
   }
   return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16) / 255);
 }
@@ -106,7 +106,7 @@ export function ensureReadable(accentHex, surfaceHex) {
 
 const TOKENS = ["bg", "border", "text", "strong", "dim", "accent"];
 
-// Colours reach the SVG as custom properties rather than literals, so one card can
+// Colors reach the SVG as custom properties rather than literals, so one card can
 // carry two palettes and pick between them at view time.
 const declare = (palette) =>
   TOKENS.map((token) => `      --${token}: ${palette[token]};`).join("\n");
@@ -119,7 +119,7 @@ const resolve = (name, accentInput) => {
 
 // "auto" emits both palettes: light on :root, dark behind prefers-color-scheme. An
 // SVG embedded as an image still evaluates that query against the viewer's setting,
-// which is the only way an unframed card can sit on a page whose colour it does not
+// which is the only way an unframed card can sit on a page whose color it does not
 // know. The accent is validated against each surface separately, so a hex that is
 // readable on one and not the other is corrected only where it needs to be.
 export function buildTheme(name, accentInput) {

@@ -3,7 +3,7 @@
 // page, which is the one thing this project argues against, so the badge is ours.
 //
 // No frame and no fill: it sits beside a heading, where a pill would fight the type. The
-// colours come from custom properties, so it follows the reader's scheme.
+// colors come from custom properties, so it follows the reader's scheme.
 
 import { buildTheme } from "./theme.mjs";
 

@@ -4,7 +4,7 @@ Icons
 The metric icons are Octicons by GitHub, Inc., used under the MIT License.
 The specific glyphs are star-16, history-16, git-pull-request-16, repo-16 and
 issue-opened-16. See https://github.com/primer/octicons for the source and its
-licence text.
+license text.
 
-Language colours are GitHub's published language colours. They are adjusted for
+Language colors are GitHub's published language colors. They are adjusted for
 contrast per surface before drawing, so a value may differ from the published one.

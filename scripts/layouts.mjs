@@ -46,7 +46,7 @@ const svgDocument = ({ width, height, title, desc, style, body }) => `<svg
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
-  aria-labelledby="descId"
+  aria-labeledby="descId"
 >
   ${SIGNATURE}
   <title id="titleId">${escape(title)}</title>
