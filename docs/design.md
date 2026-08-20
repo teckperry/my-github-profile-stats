@@ -72,7 +72,7 @@ render, which means every card that exists sits in a public repository and can b
 searching for the line above:
 
 ```
-"my-github-profile-stats" in:file extension:svg -repo:teckperry/my-github-profile-stats
+"my-github-profile-stats" in:file extension:svg -repo:teckperry/my-github-profile-stats -path:examples
 ```
 
 `scripts/adopters.mjs` runs that, prints the repositories it found, and with `--write`
@@ -96,10 +96,27 @@ as an adopter: its ten example files matched the search whether or not anybody h
 published anything. The query excludes `examples/` as well, so a copy made before that
 change still does not count.
 
-Its limits, since a number is worth what its method is. Code search is scoped to what the
-searching token can read, so the figure depends on who runs it — in the workflow that is
-the built-in token, which sees public code only. `total_count` is approximate above a
-thousand results. Indexing lags publication by a while, so a card can exist for some time
-before it is counted. And anyone who removes the line disappears from the count.
+Its limits, since a number is worth what its method is.
 
-A floor, not a census.
+**Indexing decides what can be found, and it is neither immediate nor guaranteed.** Measured
+on 20 August 2026: a card published 22 hours earlier, in a public repository that is not a
+fork, returned nothing for *any* query — not the signature, not `svg`, not its own readme,
+which had been sitting there since 2021. Two adopters existed and one was counted. That is
+why the badge reads `2+` and not `2`.
+
+**Code search is scoped to what the searching token can read**, so the figure depends on who
+runs it. The workflow uses the built-in token, which sees public code. A personal token also
+sees private repositories, and a signed card in one of those is not a published card, so
+each match's visibility is read from the response and private ones are dropped. `is:public`
+cannot do that job: it is not a code-search qualifier, and a query carrying it returns zero
+results rather than an error — it returns zero for this project's own cards.
+
+**Pages are of files, not of profiles.** A profile publishing both cards is two matches, so
+one page of a hundred held the count only to about fifty adopters while the badge drew the
+truncated number as though it were the total. The run pages to search's thousand-result
+ceiling — around five hundred adopters — and says so when it gets there.
+
+`total_count` is approximate above a thousand results. And anyone who removes the line
+disappears from the count.
+
+A floor, not a census, and the badge says so.

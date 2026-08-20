@@ -3,3 +3,7 @@ card.svg
 preview/
 samples/
 profile/
+
+# Written by the Finder, not by anybody. A copy of this repository inherits the file, and
+# committing one into somebody's profile repository would be a puzzling thing to receive.
+.DS_Store
