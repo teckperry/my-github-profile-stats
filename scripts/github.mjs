@@ -2,7 +2,9 @@ let TOKEN;
 let USERNAME;
 
 // One HTTP client for every entry point: the same backoff, the same request log, the
-// same reading of what the token can reach.
+// same reading of what the token can reach. The adopter counter used to be the exception
+// -- a bare fetch that threw on the first refusal -- which is what made this sentence
+// false and the daily count fail on two out of five days.
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -15,7 +17,24 @@ const httpLog = [];
 // rows can trip, and a nightly run should not fail over something that clears in a
 // minute. Retriable statuses back off; everything else fails immediately.
 const RETRIABLE = new Set([403, 429, 500, 502, 503, 504]);
-const MAX_ATTEMPTS = 4;
+// One a day is the whole budget of the adopter count, so waiting is free and giving up
+// early is not. Five attempts, each capped at a minute.
+const MAX_ATTEMPTS = 5;
+
+// GitHub refuses in two different shapes and only one of them carries a header.
+//
+//   primary limit    403, x-ratelimit-reset, no retry-after  (code_search allows 10/min)
+//   secondary limit  429, no retry-after at all, and the number only in the body:
+//                    {"message":"try again in 39.522617937s", ...}
+//
+// Measured on the adopter counter, which failed 11 runs out of 25 on waits of 2 to 42
+// seconds -- it makes one request a day, so this was never about asking for too much.
+// Reading the body is the only way to learn the second number, so read it first.
+const askedWaitMs = (body) => {
+  const match = /try again in ([\d.]+)\s*s/i.exec(body);
+  // A beat past what was asked for, rather than racing the moment it clears.
+  return match ? Math.ceil(Number(match[1]) * 1000) + 500 : 0;
+};
 
 export function configure({ token, username }) {
   TOKEN = token;
@@ -47,11 +66,13 @@ export async function callGitHub(url, init) {
     // Honour whatever the API asks for, falling back to exponential backoff.
     const retryAfter = Number(response.headers.get("retry-after"));
     const reset = Number(response.headers.get("x-ratelimit-reset"));
-    const waitMs = Number.isFinite(retryAfter) && retryAfter > 0
-      ? retryAfter * 1000
-      : Number.isFinite(reset) && reset > 0
-        ? Math.max(0, reset * 1000 - Date.now())
-        : 0;
+    const waitMs =
+      askedWaitMs(body) ||
+      (Number.isFinite(retryAfter) && retryAfter > 0
+        ? retryAfter * 1000
+        : Number.isFinite(reset) && reset > 0
+          ? Math.max(0, reset * 1000 - Date.now())
+          : 0);
     const delay = Math.min(60_000, waitMs || 2000 * 2 ** (attempt - 1));
     console.log(
       `HTTP ${response.status} on attempt ${attempt}/${MAX_ATTEMPTS}, retrying in ${Math.round(delay / 1000)}s`,

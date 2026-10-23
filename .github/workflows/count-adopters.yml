@@ -6,7 +6,10 @@ name: Count adopters
 
 on:
   schedule:
-    # Daily, and off the hour to stay clear of the busiest scheduling slots.
+    # Daily, off the hour because the top of one is the most contended slot. It does not
+    # buy much: measured over 25 runs, this lands between 09:38 and 13:28 UTC rather than
+    # at 05:37. GitHub delays a scheduled workflow by hours and nothing here changes that,
+    # which is fine for a figure that moves once a week.
     - cron: "37 5 * * *"
   workflow_dispatch:
 
