@@ -12,10 +12,17 @@
 //   GITHUB_TOKEN=$(gh auth token) node scripts/adopters.mjs
 //   ... --write   also redraws assets/adopters.svg
 
+import { callGitHub, configure } from "./github.mjs";
+
 const TOKEN = process.env.GITHUB_TOKEN ?? process.env.STATS_TOKEN;
 if (!TOKEN) {
   throw new Error("GITHUB_TOKEN is required: code search will not answer unauthenticated.");
 }
+
+// Through the shared client, so a refusal is waited out rather than thrown. Code search
+// answers 429 "try again in Xs" often enough that a single bare attempt failed 11 runs out
+// of 25, every one of them on a wait of a few seconds to three quarters of a minute.
+configure({ token: TOKEN, username: "adopters" });
 
 const SELF = "teckperry/my-github-profile-stats";
 // Excluding examples/ as well as this repository: a copy made before the examples stopped
@@ -32,22 +39,11 @@ const PER_PAGE = 100;
 // that reaches it says so instead of quietly reporting a floor of a floor.
 const MAX_PAGES = 10;
 
-async function fetchPage(number) {
-  const response = await fetch(
+const fetchPage = (number) =>
+  callGitHub(
     `https://api.github.com/search/code?q=${encodeURIComponent(QUERY)}&per_page=${PER_PAGE}&page=${number}`,
-    {
-      headers: {
-        accept: "application/vnd.github+json",
-        authorization: `Bearer ${TOKEN}`,
-        "user-agent": "adopters/my-github-profile-stats",
-      },
-    },
+    { headers: { "user-agent": "adopters/my-github-profile-stats" } },
   );
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} ${await response.text()}`);
-  }
-  return response.json();
-}
 
 // Repositories, not files: one profile publishing both cards matches twice and is one
 // adopter. Visibility arrives with each match, which is the only way to hold the count to
